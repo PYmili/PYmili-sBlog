@@ -1,0 +1,107 @@
+main {
+    display: flex;
+    flex: 1;
+}
+
+.shell {
+    display: flex;
+}
+
+.buttons {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%; /* 使 .buttons 铺满整个屏幕高度 */
+    width: 10%; /* 侧边栏宽度 */
+    background-color: rgba(138, 152, 201, 0.1);
+    color: #fff; /* 设置字体颜色为白色 */
+    z-index: 2; /* 保证 .buttons 显示在顶层 */
+}
+
+
+.li {
+    letter-spacing: 2px;
+    font: 600 17px '';
+    padding: 16px 52px;
+    transition: .3s;
+}
+
+.li::after {
+    content: '';
+    position: absolute;
+    left: 20px;
+    margin-top: -22px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.buttons>li:hover {
+    background-color: #beb5df;
+}
+
+.li ul {
+    width: 0;
+    height: auto;
+    padding: 60px 0;
+    position: fixed;
+    top: 0;
+    right: none;
+    overflow: hidden;
+    background-color: #000;
+    transition: .3s;
+}
+
+.li ul li {
+    padding: 16px 24px;
+    transition: .3s;
+}
+
+.li:hover ul {
+    width: auto;
+    height: 100%;
+}
+
+.li ul li:hover {
+    background-color: #828eb9;
+}
+
+.content {
+    margin-left: 10%; /* 让 .content 在 .buttons 的右侧 */
+    flex: 1; /* 让 .content 占据剩余空间 */
+    padding: 20px;
+}
+
+/* 添加媒体查询以适配手机屏幕 */
+@media (max-width: 768px) {
+    .buttons {
+        width: 15%; /* 屏幕宽度 */
+        background-color: rgba(138, 152, 201, 0.1); /* 更改背景颜色和透明度 */
+    }
+
+    .li {
+        padding: 10px; /* 调整按钮内边距 */
+        font-size: 14px; /* 调整字体大小 */
+    }
+
+    .li::after {
+        display: none; /* 移除图标 */
+    }
+
+    .li ul {
+        width: 0; /* 屏幕宽度 */
+        background-color: #000; /* 更改背景颜色 */
+    }
+
+    .li:hover ul {
+        width: auto;
+        height: 100%;
+    }
+
+    .li ul li {
+        padding: 10px; /* 调整子菜单内边距 */
+        font-size: 14px; /* 调整子菜单字体大小 */
+    }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index/css/main.css') }}">
+    <title>PYmili's Blog</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            /* 背景渐变 */
+            background-image: linear-gradient(-225deg, #231557 0%,
+                    #43107a 29%, #FF1361 100%);
+            display: flex;
+        }
+
+        canvas {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<!--background 背景-->
+<main>
+    <canvas></canvas>
+    <nav class="shell">
+        <ul class="buttons">
+            <li class="li">
+                <a href="/" style="text-decoration: none;color: #fff;">主页</a>
+            </li>
+            <li class="li">
+                文章
+                <ul>
+                    <li>最新（latest）</li>
+                    <li>所有（all）</li>
+                    <li>搜索（search）</li>
+                </ul>
+            </li>
+
+            <li class="li">
+                用户
+                <ul>
+                    <li>登录（login）</li>
+                    <li>注册（register）</li>
+                    <li>信息（information）</li>
+                </ul>
+            </li>
+
+            <li class="li">
+                关于
+                <ul>
+                    <li>联系方式（contact）</li>
+                    <li>资助（finances）</li>
+                </ul>
+            </li>
+
+            <li class="li">
+                资源
+                <ul>
+                    <li>公共资源（public）</li>
+                    <li>免费资源（Free）</li>
+                    <li>分享资源（share）</li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div class="content">
+        <!-- 在这里添加您的内容 -->
+        <h1>Welcome to PYmili's Blog</h1>
+        <p>This is where your blog content will be displayed.</p>
+        <!-- 可以添加更多内容，如文章列表、文章内容等 -->
+    </div>
+</main>
+<script src="{{ url_for('static', filename='index/js/background.js') }}"></script>
+</body>
+</html>
