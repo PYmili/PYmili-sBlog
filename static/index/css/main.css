@@ -75,6 +75,12 @@ main {
     background-color: #828eb9;
 }
 
+.li ul a {
+    font: 800 10px '';
+    color: #fff;
+    text-decoration: none;
+}
+
 /*
 * 内容显示窗口
 */
