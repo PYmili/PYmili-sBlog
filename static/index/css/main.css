@@ -3,10 +3,16 @@ main {
     flex: 1;
 }
 
+/*
+* 侧边框(主)
+*/
 .shell {
     display: flex;
 }
 
+/*
+* 侧边框按钮
+*/
 .buttons {
     position: fixed;
     top: 0;
@@ -55,7 +61,8 @@ main {
 }
 
 .li ul li {
-    padding: 16px 24px;
+    font: 800 10px '';
+    padding: 20px 40px;
     transition: .3s;
 }
 
@@ -68,14 +75,65 @@ main {
     background-color: #828eb9;
 }
 
+/*
+* 内容显示窗口
+*/
 .content {
     margin-left: 10%; /* 让 .content 在 .buttons 的右侧 */
     flex: 1; /* 让 .content 占据剩余空间 */
     padding: 20px;
 }
 
+.content h1 {
+    color: #fff;
+}
+
+.content p {
+    color: #fff;
+}
+
+/*
+* 内容显示窗口下的主页内容
+*/
+.text {
+    /* background-color: rgba(255, 255, 255, 0.5); /* 使用rgba来定义白色带透明度的颜色 */
+    /* border-radius: 10px; /* 圆角效果 */
+    margin: 20px;
+    text-align: center; /* 文本水平居中 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 文本垂直居中 */
+    align-items: center; /* 文本水平居中 */
+    height: 45%;
+}
+
+.text h1 {
+    text-align: center;
+    color: #fff;
+    font: 800 30px '';
+}
+
+.text p {
+    text-align: center;
+}
+
+/* 作者留言 */
+.text author {
+    text-align: right; /* 设置文本右对齐 */
+    position: absolute;
+    right: 1; /* 位于右侧 */
+}
+
 /* 添加媒体查询以适配手机屏幕 */
 @media (max-width: 768px) {
+    .content h1 {
+        font-size: 20px;
+    }
+
+    .content p {
+        font-size: 10px;
+    }
+
     .buttons {
         width: 15%; /* 屏幕宽度 */
         background-color: rgba(138, 152, 201, 0.1); /* 更改背景颜色和透明度 */

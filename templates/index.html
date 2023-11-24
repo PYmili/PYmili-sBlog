@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='index/resource/icon.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', filename='index/css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index/css/player.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index/css/content.css') }}">
     <title>PYmili's Blog</title>
     <style>
         * {
@@ -28,7 +31,6 @@
     </style>
 </head>
 <body>
-<!--background 背景-->
 <main>
     <canvas></canvas>
     <nav class="shell">
@@ -39,35 +41,35 @@
             <li class="li">
                 文章
                 <ul>
-                    <li>最新（latest）</li>
-                    <li>所有（all）</li>
-                    <li>搜索（search）</li>
+                    <li>最新的论文</li>
+                    <li>所有论文</li>
+                    <li>搜索相关</li>
                 </ul>
             </li>
 
             <li class="li">
                 用户
                 <ul>
-                    <li>登录（login）</li>
-                    <li>注册（register）</li>
-                    <li>信息（information）</li>
+                    <li>登录账户</li>
+                    <li>注册账户</li>
+                    <li>账户的信息</li>
                 </ul>
             </li>
 
             <li class="li">
                 关于
                 <ul>
-                    <li>联系方式（contact）</li>
-                    <li>资助（finances）</li>
+                    <li>联系方式</li>
+                    <li>想资助我们</li>
                 </ul>
             </li>
 
             <li class="li">
                 资源
                 <ul>
-                    <li>公共资源（public）</li>
-                    <li>免费资源（Free）</li>
-                    <li>分享资源（share）</li>
+                    <li>公共的资源</li>
+                    <li>免费的资源</li>
+                    <li>分享的资源</li>
                 </ul>
             </li>
         </ul>
@@ -77,8 +79,56 @@
         <h1>Welcome to PYmili's Blog</h1>
         <p>This is where your blog content will be displayed.</p>
         <!-- 可以添加更多内容，如文章列表、文章内容等 -->
+        <br />
+
+        <div class="text">
+            <div>
+                <h1>欢迎，来到这里！</h1>
+                <br>
+                <p>
+                    这里是PYmili的博客，我会在这里分享一些人生经历，有趣的事和学习经历。
+                    我会把学习编程时，编写的源代码或程序共享给大家。这些都是免费的。<br>
+                    但是，不仅仅是我可以发布的文章，连你也可以。
+                    只需要注册账号通过审核就可以发布文章了。
+                    这样，就可以一起分享有趣的事或干货满满的知识了！
+                    <br><br>
+                    <br>
+                    <author>
+                        希望在这里，可以让你找到乐趣，充实你的生活，享受好当下的生活。<br>
+                        ———— PYmili
+                    </author>
+                </p>
+            </div>
+        </div>
+        <div id="site-build-time-container">
+            <div id="site-build-time">
+                <p>
+                    已建站：<span id="days">0</span> 天
+                    <span id="hours">00</span> 小时
+                    <span id="minutes">00</span> 分钟
+                    <span id="seconds">00</span> 秒
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="music-player">
+        <div class="music-info">
+            <button id="collapse-button">❯</button>
+            <div class="album-cover">
+                <img src="{{ url_for('static', filename='index/resource/wallhaven-4y8ll7.png') }}" alt="Album Cover">
+            </div>
+            <div class="music-controls">
+                <button id="play-pause"></button>
+                <input type="range" id="seek-bar" value="0" min="0" step="1">
+                <span id="current-time">0:00</span>
+                <span>/</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
     </div>
 </main>
 <script src="{{ url_for('static', filename='index/js/background.js') }}"></script>
+<script src="{{ url_for('static', filename='index/js/player.js') }}"></script>
+<script src="{{ url_for('static', filename='index/js/content.js') }}"></script>
 </body>
 </html>
