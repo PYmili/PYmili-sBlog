@@ -13,7 +13,7 @@ def readUserData(userName: str) -> dict:
     result = {}
     __WalkPath = os.path.join(
         os.getcwd(),
-        "api\\data\\user"
+        "api/data/user"
     )
     for paths, dirs, files in os.walk(__WalkPath):
         for file in files:
@@ -71,7 +71,7 @@ class KeyProcessing:
         data['login_key'] = self.key
         __WalkPath = os.path.join(
             os.getcwd(),
-            "api\\data\\user"
+            "api/data/user"
         )
 
         with open(data['userPath'], "w+", encoding="utf-8") as wfp:
