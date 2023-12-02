@@ -15,7 +15,8 @@ from api import RandomPicture   # 随机图片
 from api import (
     verifyLogin,
     KeyProcessing,
-    UpdateLoginTime
+    UpdateLoginTime,
+    readUserData
 )
 
 
@@ -72,7 +73,8 @@ def content():
     if vl.verifyKey() and vl.verifyLoginTime():
         return render_template(
             "content.html",
-            userName=userName
+            userName=userName,
+            userIcon=readUserData(userName)['userIcon']
         )
 
     return redirect("/")

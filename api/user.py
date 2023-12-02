@@ -2,6 +2,7 @@ import os
 import json
 import string
 import random
+import base64
 from datetime import datetime
 
 
@@ -25,7 +26,25 @@ def readUserData(userName: str) -> dict:
                 result = json.loads(rfp.read())
                 result['userPath'] = filePath
 
+    userIcon = str(ToBase64(result['userIcon']))
+    if userIcon:
+        result['userIcon'] = userIcon
+
     return result
+
+
+class ToBase64:
+    def __init__(self, source: str) -> None:
+        self.source = source
+
+    def __repr__(self) -> str:
+        result = ""
+        if os.path.isfile(self.source):
+            with open(self.source, "rb") as rfp:
+                header = f"data:image/{os.path.splitext(self.source)[-1].strip('.')};base64,"
+                result = header + str(base64.b64encode(rfp.read()).decode("utf-8"))
+
+        return result
 
 
 def UpdateLoginTime(userName: str) -> bool:

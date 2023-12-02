@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" href="{{ url_for('static', filename='index/resource/icon.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', filename='content/css/LeftMenu.css') }}">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/c/font_4356119_yyktiio3cnl.css">
     <title>{{ userName }}的主页</title>
 </head>
 <body>
@@ -11,32 +12,33 @@
         <header>
             <div class="image-text">
                 <span class="image">
-                    <img src="./1.jpg" alt="">
+                    <img src="{{ userIcon }}" alt="{{ userName }}">
                 </span>
                 <div class="text logo-text">
                     <span class="name">PYmili's Blog</span>
                     <span class="software">-{{ userName }}-</span>
                 </div>
             </div>
-            <i class="iconfont icon-xiangyoujiantou toggle"></i>
+<!--            <i class="iconfont icon-xiangyoujiantou toggle"></i>-->
+            <i class="iconfont icon-xiangyou toggle"></i>
         </header>
         <div class="menu-bar">
             <div class="menu">
                 <li class="search-box">
-                    <i class="iconfont icon-sousuo icon"></i>
+                    <i class="iconfont icon-search icon"></i>
                     <input type="text" placeholder="搜索...">
                 </li>
                 <ul class="menu-links">
                     <li class="nav-link">
                         <a href="#">
-                            <i class="iconfont icon-shouye icon"></i>
+                            <i class="iconfont icon-home icon"></i>
                             <span class="text nac-text">主页</span>
                         </a>
                     </li>
 
                     <li class="nav-link">
                         <a href="#">
-                            <i class="iconfont icon-shoucangxiao icon"></i>
+                            <i class="iconfont icon-shoucang icon"></i>
                             <span class="text nac-text">我的收藏</span>
                         </a>
                     </li>
@@ -57,14 +59,14 @@
 
                     <li class="nav-link">
                         <a href="#">
-                            <i class="iconfont icon-fensi icon"></i>
+                            <i class="iconfont icon-ziyuan icon"></i>
                             <span class="text nac-text">资源管理</span>
                         </a>
                     </li>
 
                     <li class="nav-link">
                         <a href="#">
-                            <i class="iconfont icon-chuangzuo icon"></i>
+                            <i class="iconfont icon-chuangzuozhezhongxin icon"></i>
                             <span class="text nac-text">创作中心</span>
                         </a>
                     </li>
@@ -73,14 +75,13 @@
             <div class="bottom-content">
                 <li class="">
                     <a href="#">
-                        <i class="iconfont icon-zhuxiaoyuan icon"></i>
+                        <i class="iconfont icon-tuichu icon"></i>
                         <span class="text nac-text">注销</span>
                     </a>
                 </li>
                 <li class="mode">
                     <div class="sun-moon">
-                        <i class="iconfont icon-rijian icon sun"></i>
-                        <i class="iconfont icon-yejian icon moon"></i>
+                        <i class="iconfont icon-sun" id="sun-moon"></i>
                     </div>
                     <span class="mode-text text">夜间模式</span>
                     <div class="toggle-switch">
