@@ -94,7 +94,7 @@ def loginRandomImg():
 
     __contentImgPath = os.path.join(
         os.getcwd(),
-        "static\\login\\img\\content_img"
+        "static/login/img/content_img"
     )
 
     if mobile == "phone":
