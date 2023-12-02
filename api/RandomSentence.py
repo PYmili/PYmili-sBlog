@@ -1,3 +1,6 @@
+"""
+@function: 随机一言功能
+"""
 import requests
 
 API = "https://api.xygeng.cn/one"

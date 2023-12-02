@@ -107,15 +107,15 @@ class RandomPicture:
         ]
 
     def __run(self) -> str:
+        result = ""
         __data = random.choice(self.apiFunction)()
-        result = random.choice(__data)['url']
-        if result:
-            return result
-        else:
-            return ""
+        if __data:
+            result = random.choice(__data)['url']
+
+        return result
 
     def __str__(self) -> str:
         return self.__run()
 
 
-print(RandomPicture())
+# print(RandomPicture())

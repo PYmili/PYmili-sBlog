@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登录</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='login/css/style.css') }}">
+    <script src="{{ url_for('static', filename='login/js/main.js') }}"></script>
 </head>
 <body>
     <div class="content">
@@ -29,18 +30,18 @@
                     <h1>Log in</h1>
                     <div class="input-items">
                         <span class="input-tips">
-                            邮件地址
+                            用户名
                         </span>
-                        <input type="text" class="inputs" placeholder="输入您的邮件">
+                        <input type="text" class="inputs" id="usernameInput" placeholder="输入您的账户名">
                     </div>
                     <div class="input-items">
                         <span class="input-tips">
                             密码
                         </span>
-                        <input type="password" class="inputs" placeholder="输入您的密码">
+                        <input type="password" class="inputs" id="passwordInput" placeholder="输入您的密码">
                         <span class="forgot">忘记密码</span>
                     </div>
-                    <button class="btn">登录</button>
+                    <button class="btn" onclick="login()">登录</button>
                     <div class="siginup-tips">
                         <span>没有帐户？</span>
                         <span>注册</span>

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const minutesElement = document.getElementById("minutes");
     const secondsElement = document.getElementById("seconds");
 
-    const siteBuildDate = new Date("2022-01-01"); // 替换为您的网站建立日期
+    const siteBuildDate = new Date("2023-11-24"); // 替换为您的网站建立日期
 
     function updateSiteBuildTime() {
         const currentDate = new Date();

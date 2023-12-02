@@ -7,13 +7,15 @@
 .content {
   width: 100vw;
   height: 100vh;
-  background-color: rgb(186, 175, 221);
+  /* background-color: rgb(186, 175, 221); */
+  /* background: url(/static/login/img/ganyu.jpg) no-repeat;
+  background-size: cover; */
   position: relative;
 }
 .content .login-wrapper {
   width: 70vw;
   height: 80vh;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 40px;
   position: absolute;
   left: 50%;
@@ -24,12 +26,14 @@
 .content .login-wrapper .left-img {
   border-radius: 40px;
   flex: 1;
-  background: url(/static/login/img/bg.jpg) no-repeat;
+  /* background: url(/static/login/img/bg.jpg) no-repeat; */
+  opacity: 0.5;
+  background: #000;
   background-size: cover;
   position: relative;
 }
 .content .login-wrapper .left-img .glass {
-  width: 60%;
+  width: 80%;
   padding: 20px;
   color: #fff;
   position: absolute;
