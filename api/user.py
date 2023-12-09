@@ -4,14 +4,15 @@ import string
 import random
 import base64
 from datetime import datetime
+from typing import Union, Dict
 
 
-def readUserData(userName: str) -> dict:
+def readUserData(userName: str) -> Union[dict, None]:
     """
     读取用户数据
-    :return: dict
+    :return: Union[dict, None]
     """
-    result = {}
+    result = None
     __WalkPath = os.path.join(
         os.getcwd(),
         "api/data/user"
@@ -25,6 +26,9 @@ def readUserData(userName: str) -> dict:
             with open(filePath, "r", encoding="utf-8") as rfp:
                 result = json.loads(rfp.read())
                 result['userPath'] = filePath
+
+    if not result:
+        return None
 
     userIcon = str(ToBase64(result['userIcon']))
     if userIcon:
@@ -54,6 +58,9 @@ def UpdateLoginTime(userName: str) -> bool:
     :return: bool
     """
     data = readUserData(userName)
+    if not data:
+        return False
+
     data['Last_login'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(data['userPath'], "w+", encoding="utf-8") as wfp:
         wfp.write(json.dumps(data, indent=4))
@@ -87,6 +94,10 @@ class KeyProcessing:
         :return: bool
         """
         data = readUserData(self.userName)
+
+        if not data:
+            return False
+
         data['login_key'] = self.key
         __WalkPath = os.path.join(
             os.getcwd(),
@@ -119,7 +130,18 @@ class KeyProcessing:
 
 
 class verifyLogin:
-    def __init__(self, userName: str, password: str = False, key: str = False):
+    def __init__(
+            self,
+            userName: str,
+            password: str = False,
+            key: str = False
+    ) -> None:
+        """
+        用于检查用户的登录页面的数据
+        :param userName: 用户名
+        :param password: 密码
+        :param key: key值
+        """
         self.userName = userName
         self.password = password
         self.NowTime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -139,10 +161,10 @@ class verifyLogin:
 
         return True
 
-    def verifyLoginTime(self):
+    def verifyLoginTime(self) -> bool:
         """
         验证登录时间是否大于30分钟
-        :return:
+        :return: bool
         """
         data = readUserData(self.userName)
         if not data:
@@ -155,19 +177,22 @@ class verifyLogin:
 
         return True
 
-    def verify(self) -> bool:
+    def verify(self) -> Dict[str, int]:
         """
         验证用户是否合法
-        :return: bool
+        :return: Dict[str, int]
         """
+        result = {"result": False}
         data = readUserData(self.userName)
         if not data:
-            return False
+            result["content"] = "未找到此用户！"
+        elif self.password != data['data']['pwd']:
+            result["content"] = "密码错误！"
+        else:
+            result['result'] = True
+            result["content"] = "登录成功！"
 
-        if self.password != data['data']['pwd']:
-            return False
-
-        return True
+        return result
 
 
 # kp = KeyProcessing("PYmili")

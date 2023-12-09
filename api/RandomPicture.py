@@ -1,4 +1,5 @@
 import random
+from typing import List
 
 import requests
 
@@ -8,10 +9,10 @@ headers = {
 }
 
 
-def joe_api() -> list:
+def joe_api() -> List[dict]:
     """
     获取joe_api的图片列表
-    :return:
+    :return: List[dict]
     """
     data = {
         "routeType": "wallpaper_list",
@@ -37,10 +38,10 @@ def joe_api() -> list:
             return []
 
 
-def btstu_img() -> list:
+def btstu_img() -> List[dict]:
     """
     获取 https://api.btstu.cn/doc/sjbz.php 中随机图片
-    :return: list
+    :return: List[dict]
     """
     result = []
     __url = "https://api.btstu.cn/sjbz/api.php?lx=dongman&format=json"
@@ -57,11 +58,11 @@ def btstu_img() -> list:
     return result
 
 
-def hanImgApiFunction(url: str) -> list:
+def hanImgApiFunction(url: str) -> List[dict]:
     """
     获取 韩小韩 图片api
-    :param url:
-    :return:
+    :param url: str
+    :return: List[dict]
     """
     result = []
     with requests.get(url, headers=headers) as get:
@@ -75,10 +76,10 @@ def hanImgApiFunction(url: str) -> list:
     return result
 
 
-def hanLandscapeImg() -> list:
+def hanLandscapeImg() -> List[dict]:
     """
     获取韩小韩风景api
-    :return: list
+    :return: List[dict]
     """
     result = hanImgApiFunction(
         "https://api.vvhan.com/api/view?type=json"
@@ -86,10 +87,10 @@ def hanLandscapeImg() -> list:
     return result
 
 
-def hanAcgImg() -> list:
+def hanAcgImg() -> List[dict]:
     """
     获取韩小韩动漫api
-    :return: list
+    :return: List[dict]
     """
     result = hanImgApiFunction(
         "https://api.vvhan.com/api/acgimg?type=json"
@@ -98,7 +99,7 @@ def hanAcgImg() -> list:
 
 
 class RandomPicture:
-    def __init__(self):
+    def __init__(self) -> None:
         self.apiFunction = [
             joe_api,
             # btstu_img,

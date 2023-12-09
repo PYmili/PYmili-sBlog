@@ -20,6 +20,7 @@ async function fetchBackgroundImage(apiEndpoint) {
     contentElement.style.backgroundImage = `url(${content})`;
     contentElement.style.backgroundRepeat = 'no-repeat';
     contentElement.style.backgroundSize = 'cover';
+    contentElement.style.backgroundPosition = 'center'; // 将背景图像水平和垂直居中
 
   } catch (error) {
     console.error('获取BackgroundImage时获取操作出现问题：', error);
@@ -62,6 +63,13 @@ window.addEventListener('load', async function () {
 });
 
 
+// 检查用户名是否包含非法字符
+function isValidUsername(username) {
+  // 使用正则表达式检查用户名是否只包含字母、数字和下划线
+  var regex = /^[a-zA-Z0-9_]+$/;
+  return regex.test(username);
+}
+
 // 定义登录函数
 function login() {
     // 获取用户名和密码输入框的值
@@ -76,8 +84,13 @@ function login() {
 
     // 检查用户名和密码是否有数据
     if (usernameValue.trim() === '' || passwordValue.trim() === '') {
-        alert('请输入用户名和密码！');
+        alert('请输入用户名或密码！');
         return;
+    }
+    // 检查用户名是否包含非法字符
+    if (!isValidUsername(usernameValue)) {
+      alert('用户名包含非法字符，请只使用字母、数字和下划线！');
+      return;
     }
 
     // 构造 POST 请求数据
@@ -105,7 +118,7 @@ function login() {
             // var ContentUrl = `/content?user=${usernameValue}&key=${key}`
             // window.location.assign(ContentUrl);
         } else {
-            alert("登录失败！");
+            alert(data['content']);
         }
     })
     .catch(error => {
