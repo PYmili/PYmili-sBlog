@@ -19,6 +19,7 @@ from api import (
     UpdateLoginTime,
     readUserData
 )
+from api import Gallery
 
 
 app = Flask(
@@ -88,6 +89,54 @@ def content() -> Union[redirect, render_template]:
         )
 
     return redirect("/")
+
+
+@app.route("/gallery", methods=["GET"])
+def gallery():
+    """
+    图库界面
+    :return:
+    """
+    return render_template("gallery.html")
+
+
+@app.route("/galleryImageList", methods=["POST"])
+def galleryImageList():
+    """
+    API
+    获取图库中的数据
+    :return:
+    """
+    result = {
+        "code": HTTPStatus.NOT_FOUND
+    }
+    userName = None
+    page = None
+
+    if request.json:
+        try:
+            userName = request.json["userName"]
+            page = request.json["page"]
+        except KeyError:
+            pass
+
+    data = Gallery(userName, page).getData()
+    if data:
+        result["content"] = data
+        result["code"] = HTTPStatus.OK
+
+    return result
+
+
+@app.route("/galleryImageTotal", methods=["POST", "GET"])
+def galleryImageTotal():
+    """
+    返回图库中所有图片的总数
+    :return:
+    """
+    return {
+        "content": Gallery().total()
+    }
 
 
 @app.route("/api/loginRandomImg", methods=["GET"])

@@ -4,3 +4,4 @@ from .user import verifyLogin
 from .user import KeyProcessing
 from .user import UpdateLoginTime
 from .user import readUserData
+from .gallery import Gallery
