@@ -139,7 +139,7 @@ def galleryImageTotal():
     }
 
 
-@app.route("/api/loginRandomImg", methods=["GET"])
+@app.route("/ap i/loginRandomImg", methods=["GET"])
 def loginRandomImg() -> Dict[str, int]:
     """
     login界面随机手机背景

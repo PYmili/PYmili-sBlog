@@ -1,3 +1,8 @@
+let ShowImageNumber = 24; // 一页显示图片数量
+let currentPage = 0; // 当前页数
+let totalImages = 0; // 总图片数
+let totalPage = 0; // 总页数
+
 document.addEventListener("DOMContentLoaded", function () {
     const imageArea = document.getElementById("imageArea");
     const pageNumbersContainer = document.getElementById("pageNumbers");
@@ -5,9 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // 模拟的图片数据
     const apiUrl = "/galleryImageList";
     const totalImagesUrl = "/galleryImageTotal";
-    let currentPage = 0;
-    let totalImages = 0;
-    let totalPage = 0;
 
     // 初始化页面，显示默认数量的图片
     updateTotalImages()
@@ -19,14 +21,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // 将 changePage 和 goToPage 函数移到全局作用域
     window.changePage = function(delta) {
         if (delta == 1) {
-            currentPage ++;
+            currentPage++;
         } else if (delta == 0) {
-            currentPage --;
+            currentPage--;
         }
-
+    
         updatePerPage();
         updatePageNumbers();
-    };
+    };      
 
     window.goToPage = function(pageNumber) {
         currentPage = pageNumber;
@@ -38,11 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
         let startIndex, endIndex;
     
         if (currentPage >= totalPage) {
-            startIndex = Math.max(0, totalImages - 24);
+            startIndex = totalImages - ShowImageNumber;
             endIndex = totalImages;
         } else {
-            startIndex = currentPage * 24;
-            endIndex = startIndex + 24;
+            startIndex = currentPage * ShowImageNumber;
+            endIndex = startIndex + ShowImageNumber;
         }
     
         // 清空图片展示区域
@@ -79,7 +81,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             // 将获取的字符串转换为整数
-            totalPage = Math.ceil(data.content / 20);
+            totalPage = Math.ceil(data.content / ShowImageNumber);
+            if (data.content % ShowImageNumber == 0) {
+                totalPage++;
+            }
             totalImages = data.content;
         })
         .catch(error => {
@@ -89,17 +94,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updatePageNumbers() {
         const pageNumbersHTML = [];
-
-        for (let index = 1; index <= 3; index++) {
-            if (currentPage+index > totalPage) {
-                continue;
-            } else {
-                pageNumbersHTML.push(`<button class="page-number" onclick="goToPage(${currentPage + index})">${currentPage + index}</button>`);
-            }
+    
+        // 显示当前页码的前两页和后两页
+        for (let index = Math.max(1, currentPage - 2); index <= Math.min(totalPage, currentPage + 2); index++) {
+            pageNumbersHTML.push(`<button class="page-number" onclick="goToPage(${index})">${index}</button>`);
         }
-        pageNumbersHTML.push(`<button class="page-number" onclick="goToPage(${totalPage})">最后一页：${totalPage}</button>`);
+    
+        // 如果总页数大于 3，显示最后一页按钮
+        if (totalPage > 3) {
+            pageNumbersHTML.push(`<button class="page-number" onclick="goToPage(${totalPage})">最后一页：${totalPage}</button>`);
+        }
+    
         pageNumbersContainer.innerHTML = pageNumbersHTML.join(' ');
-    }
+    }    
 
     function displayImages(imageData) {
         for (let i = 0; i < imageData.length; i++) {
