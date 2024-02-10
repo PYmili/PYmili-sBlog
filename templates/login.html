@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='index/resource/icon.svg') }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login/css/style.css') }}">
+    <script src="{{ url_for('static', filename='login/js/main.js') }}"></script>
+    <title>登录</title>
+</head>
+<body>
+    <div class="content">
+        <div class="login-wrapper">
+            <div class="left-img">
+                <div class="glass">
+                    <div class="tips">
+                        <div class="title">
+                            {{ RandomSentenceData['origin'] }}
+                        </div>
+                        <h1>{{ RandomSentenceData['content'] }}</h1>
+                        <!--<span></span>-->
+                        <span>
+                            ————{{ RandomSentenceData['name'] }}|{{ RandomSentenceData['tag'] }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="right-login-form">
+                <div class="form-wrapper">
+                    <h1>Log in</h1>
+                    <div class="input-items">
+                        <span class="input-tips">
+                            用户名
+                        </span>
+                        <input type="text" class="inputs" id="usernameInput" placeholder="输入您的账户名">
+                    </div>
+                    <div class="input-items">
+                        <span class="input-tips">
+                            密码
+                        </span>
+                        <input type="password" class="inputs" id="passwordInput" placeholder="输入您的密码">
+                        <span class="forgot">忘记密码</span>
+                    </div>
+                    <button class="btn" onclick="login()">登录</button>
+                    <div class="siginup-tips">
+                        <span>没有帐户？</span>
+                        <span>注册</span>
+                    </div>
+                    <div class="other-login">
+                        <div class="divider">
+                            <span class="line"></span>
+                            <span class="divider-text">or</span>
+                            <span class="line"></span>
+                        </div>
+                        <div class="other-login-wrapper">
+                            <div class="other-login-item">
+                                <img src="{{ url_for('static', filename='login/img/QQ.png') }}" alt="QQ">
+                            </div>
+                            <div class="other-login-item">
+                                <img src="{{ url_for('static', filename='login/img/WeChat.png') }}" alt="WeChat">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

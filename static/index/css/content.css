@@ -1,0 +1,15 @@
+/*
+* 右下角的建站时间
+*/
+#site-build-time-container {
+    position: fixed;
+    bottom: 20px; /* 距离底部的距离 */
+    right: 20px; /* 距离右侧的距离 */
+    background: rgba(255, 255, 255, 0.1); /* 背景颜色，可根据需要调整 */
+    padding: 10px; /* 内边距，可根据需要调整 */
+    border-radius: 10px; /* 圆角，可根据需要调整 */
+}
+
+#site-build-time {
+    font: 1000 20px '';
+}

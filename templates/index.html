@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='index/resource/icon.svg') }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index/css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index/css/iconfont.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index/font/iconfont.ttf') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index/css/player.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index/css/content.css') }}">
+    <title>PYmili's Blog</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            /* 背景渐变 */
+            background-image: linear-gradient(-225deg, #231557 0%,
+                    #43107a 29%, #FF1361 100%);
+            display: flex;
+        }
+
+        canvas {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <canvas></canvas>
+    <div class="menu-box">
+        <!-- 展示与隐藏侧边栏 开始-->
+        <input type="checkbox" id="menu-btn">
+        <label for="menu-btn"><i class="iconfont icon-xiangzuo"></i></label>
+        <!-- 展示与隐藏侧边栏 结束-->
+        <div class="menu">
+            <!-- 侧边栏的标题 开始-->
+            <div class="menu-title">
+                <h1>菜单</h1>
+            </div>
+            <!-- 侧边栏的标题 结束-->
+
+            <!-- 每一项导航 -->
+            <div class="menu-item">
+                <input type="checkbox" id="menu-item1">
+                <label for="menu-item1">
+                    <i class="menu-item-icon iconfont icon-home"></i>
+                    <span>主页</span>
+                    <i class="menu-item-last iconfont icon-xiangxia"></i>
+                </label>
+                <div class="menu-content">
+                    <span onclick="window.location.href=`/login`">
+                        登录
+                    </span>
+                    <span onclick="window.location.href=`/register`">
+                        注册
+                    </span>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <input type="checkbox" id="menu-item2">
+                <label for="menu-item2">
+                    <i class="menu-item-icon iconfont icon-ziyuan"></i>
+                    <span>资源</span>
+                    <i class="menu-item-last iconfont icon-xiangxia"></i>
+                </label>
+                <div class="menu-content">
+                    <span>分享资源</span>
+                    <span>搜索资源</span>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <input type="checkbox" id="menu-item3">
+                <label for="menu-item3">
+                    <i class="menu-item-icon iconfont icon-content"></i>
+                    <span>内容</span>
+                    <i class="menu-item-last iconfont icon-xiangxia"></i>
+                </label>
+                <div class="menu-content">
+                    <span onclick="window.location.href=`/firefly`">
+                        流萤
+                    </span>
+                    <span>搜索文字</span>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <input type="checkbox" id="menu-item4">
+                <label for="menu-item4">
+                    <i class="menu-item-icon iconfont icon-lianxiren"></i>
+                    <span>联系</span>
+                    <i class="menu-item-last iconfont icon-xiangxia"></i>
+                </label>
+                <div class="menu-content">
+                    <span>联系我们</span>
+                    <span>举报我们</span>
+                    <span>资助我们</span>
+                </div>
+            </div>
+
+            <div class="set-line"></div>
+
+            <div class="menu-item">
+                <label>
+                    <i class="menu-item-icon iconfont icon-ts-config"></i>
+                    <span>setting</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <!-- 在这里添加您的内容 -->
+        <h1>Welcome to PYmili's Blog</h1>
+        <p>This is where your blog content will be displayed.</p>
+        <!-- 可以添加更多内容，如文章列表、文章内容等 -->
+        <br />
+
+        <div class="text">
+            <div>
+                <h1>欢迎，来到这里！</h1>
+                <br>
+                <p>
+                    这里是PYmili的博客，我会在这里分享一些人生经历，有趣的事和学习经历。
+                    我会把学习编程时，编写的源代码或程序共享给大家。这些都是免费的。<br>
+                    但是，不仅仅是我可以发布的文章，连你也可以。
+                    只需要注册账号通过审核就可以发布文章了。
+                    这样，就可以一起分享有趣的事或干货满满的知识了！
+                    <br><br>
+                    <br>
+                    <author>
+                        希望在这里，可以让你找到乐趣，充实你的生活，享受好当下的生活。<br>
+                        ———— PYmili
+                    </author>
+                </p>
+            </div>
+        </div>
+        <div id="site-build-time-container">
+            <div id="site-build-time">
+                <p>
+                    已建站：<span id="days">0</span> 天
+                    <span id="hours">00</span> 小时
+                    <span id="minutes">00</span> 分钟
+                    <span id="seconds">00</span> 秒
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="music-player">
+        <div class="music-info">
+            <button id="collapse-button">❯</button>
+            <div class="album-cover">
+                <img src="{{ url_for('static', filename='index/resource/audio_icon.webp') }}" alt="Album Cover">
+            </div>
+            <div class="music-controls">
+                <button id="play-pause"></button>
+                <input type="range" id="seek-bar" value="0" min="0" step="1">
+                <span id="current-time">0:00</span>
+                <span>/</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="{{ url_for('static', filename='index/js/background.js') }}"></script>
+<script src="{{ url_for('static', filename='index/js/player.js') }}"></script>
+<script src="{{ url_for('static', filename='index/js/content.js') }}"></script>
+</body>
+</html>

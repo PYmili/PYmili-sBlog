@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="{{ url_for('static', filename='index/resource/icon.svg') }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ url_for('static', filename='content/css/LeftMenu.css') }}">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/c/font_4356119_w00hd2g2u2a.css">
+    <title>{{ userName }}的主页</title>
+</head>
+<body>
+    <nav class="shell close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="{{ userAvatar }}" alt="{{ userName }}">
+                </span>
+                <div class="text logo-text">
+                    <span class="name">PYmili's Blog</span>
+                    <span class="software">-{{ userName }}-</span>
+                </div>
+            </div>
+            <i class="iconfont icon-xiangyou1 toggle"></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    <i class="iconfont icon-search icon"></i>
+                    <input type="text" placeholder="搜索...">
+                </li>
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class="iconfont icon-home icon"></i>
+                            <span class="text nac-text">主页</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class="iconfont icon-shoucang icon"></i>
+                            <span class="text nac-text">我的收藏</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class="iconfont icon-lishi icon"></i>
+                            <span class="text nac-text">历史记录</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class="iconfont icon-xiaoxi icon"></i>
+                            <span class="text nac-text">消息</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class="iconfont icon-ziyuan icon"></i>
+                            <span class="text nac-text">资源管理</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class="iconfont icon-chuangzuozhezhongxin icon"></i>
+                            <span class="text nac-text">创作中心</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-content">
+                <li class="">
+                    <a href="#">
+                        <i class="iconfont icon-tuichu icon"></i>
+                        <span class="text nac-text">注销</span>
+                    </a>
+                </li>
+                <li class="mode">
+                    <div class="sun-moon">
+                        <i class="iconfont icon-sun" id="sun-moon"></i>
+                    </div>
+                    <span class="mode-text text">夜间模式</span>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+</body>
+    <script src="{{ url_for('static', filename='content/js/LeftMenu.js') }}"></script>
+</html>

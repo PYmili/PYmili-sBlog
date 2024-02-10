@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff; /* 将文本颜色设置为白色，以在深色背景上更好地显示 */
+    padding: 10px;
+    text-align: center;
+}
+
+#userArea {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#userArea a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+#imageArea {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 20px;
+}
+
+.image-wrapper {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.image-wrapper:hover {
+    transform: scale(1.1);
+}
+
+.image-wrapper:hover .image-info {
+    opacity: 1;
+}
+
+#imageArea img {
+    max-width: 100%;
+    height: auto;
+}
+
+#pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 将分页按钮水平居中 */
+    background-color: #f0f0f0; /* 设置背景颜色 */
+    padding: 10px; /* 添加一些内边距 */
+    margin-top: 20px; /* 上方边距，根据实际需要调整 */
+}
+
+.page-button,
+.page-number {
+    margin: 0 5px;
+    padding: 8px 12px; /* 调整按钮内边距 */
+    border: 1px solid #ccc; /* 添加边框 */
+    background-color: #fff; /* 设置按钮背景颜色 */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+
+.page-button:hover,
+.page-number:hover {
+    background-color: #e0e0e0; /* 悬停时的背景颜色 */
+}
+
