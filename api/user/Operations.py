@@ -2,12 +2,12 @@ import string
 import random
 from typing import Union
 
-from . import DatabaseOperations
-from .methods import ToBase64
-from .methods import CreateKeys
+from . import DBoperations
+from ..methods import ToBase64
+from ..methods import CreateKeys
 
 
-class UserOperations(DatabaseOperations.Operations):
+class UserOperations(DBoperations.Operations):
     """继承 Operations 类用于对用户的注册，查询，更新数据。"""
     def __init__(self) -> None:
         super().__init__()
@@ -40,7 +40,7 @@ class UserOperations(DatabaseOperations.Operations):
             email=otherData['email'],
             password=otherData['password'],
             keys=CreateKeys(),
-            avatar=otherData['avatar']
+            avatar=ToBase64(otherData['avatar'], "jpg")
         )
         return create_result
     
@@ -52,20 +52,5 @@ class UserOperations(DatabaseOperations.Operations):
             userName: 用户名
         :return Union[dict, None]
         """
-        get_reuslt = self.get(userName)
-        get_reuslt['avatar'] = ToBase64(get_reuslt['avatar'], "jpg")
-        return get_reuslt
+        return self.get(userName)
     
-
-if __name__ in "__main__":
-    UserOper = UserOperations()
-    # with open("D:\\Python_MX\\PYmili's_Blog\\api\\data\\UserIcons\\PYmiliIcon.png", "rb") as rfp:
-    #     UserOper.register(
-    #         userName="PYmili",
-    #         otherData={
-    #             "email": "mc2005wj@163.com",
-    #             "password": "",
-    #             "avatar": rfp.read()
-    #         }
-    #     )
-    print(UserOper.QueryUserData("PYmili"))

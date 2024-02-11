@@ -1,11 +1,11 @@
 import os
 from typing import Union, List, Dict
 
-from . import DatabaseOperations
-from .methods import ToBase64
+from . import DBOperations
+from ..methods import ToBase64
 
 
-class Gallery(DatabaseOperations.GalleryOperations):
+class Gallery(DBOperations.Operations):
     """Gallery 图库数据操作"""
     def __init__(self) -> None:
         super().__init__()
@@ -60,25 +60,3 @@ class Gallery(DatabaseOperations.GalleryOperations):
         count = self.cursor.fetchone()[0]
 
         return count
-
-
-if __name__ in "__main__":
-    # print(UpDataUserData("PYmili"))
-    g = Gallery()
-
-    # for path, dirs, files in os.walk("D:\Python_MX\PYmili's_Blog\static\gallery\data\PYmili"):
-    #     for file in files:
-    #         file = os.path.join(path, file)
-    #         with open(file, mode="rb") as rfp:
-    #             create_result = g.upload(
-    #                 user_name="PYmili",
-    #                 image_data=rfp.read(),
-    #                 image_type=os.path.splitext(file)[-1].strip(".")
-    #             )
-    #         if create_result:
-    #             print(f"成功写入文件：{file}")
-
-    print(g.count_records())
-    for content in g.get_records_by_id_range()['content']:
-        print(content['id'], content['user_name'], content['image_data'], content['image_type'], content['upload_time'])
-        break

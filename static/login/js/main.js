@@ -114,9 +114,6 @@ function login() {
         // 处理从服务器返回的数据
         if (data['code'] == 200) {
             window.location.assign("/content");
-            // key = data['key']
-            // var ContentUrl = `/content?user=${usernameValue}&key=${key}`
-            // window.location.assign(ContentUrl);
         } else {
             alert(data['content']);
         }

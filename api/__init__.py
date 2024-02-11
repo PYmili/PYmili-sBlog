@@ -1,6 +1,6 @@
 from .RandomSentence import RandomSentence
 from .RandomPicture import RandomPicture
-from .userOperations import UserOperations
-from .galleryOperations import Gallery
+from .gallery import Gallery
+from .user import UserOperations
+from .blog_post import BlogPostOperations
 from .VerificationCode import VerificationCodeService
-

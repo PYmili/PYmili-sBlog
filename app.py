@@ -1,6 +1,5 @@
 import os
 import random
-import datetime
 from http import HTTPStatus
 from typing import Dict, Union
 
@@ -9,6 +8,7 @@ from flask import request
 from flask import make_response
 from flask import render_template
 from flask import redirect
+from flask import url_for
 from flask_cors import CORS
 
 # api
@@ -16,6 +16,7 @@ from api import RandomSentence  # 随机一言
 from api import RandomPicture   # 随机图片
 from api import UserOperations
 from api import Gallery
+from api import BlogPostOperations
 from api import VerificationCodeService
 from api import methods
 
@@ -34,7 +35,14 @@ def index():
     主页
     :return: render_template
     """
-    return render_template("index.html")
+    # 获取cookies
+    UserName = request.cookies.get("user")
+    keys = request.cookies.get("keys")
+
+    if not all([UserName, keys]):
+        return render_template("index.html", login_text="登录")
+    
+    return render_template("index.html", login_text="控制台")
 
 
 @app.route("/login", methods=["GET"])
@@ -48,11 +56,11 @@ def login():
         RandomSentenceData=RandomSentence()
     )
     # 获取cookies
-    UserName = request.cookies.get("UserName")
+    UserName = request.cookies.get("user")
     keys = request.cookies.get("keys")
 
     # 检查
-    if not keys or not UserName:
+    if not all([keys, UserName]):
         return loginRenderTemplate
 
     # 验证user, keys
@@ -96,14 +104,44 @@ def content() -> Union[redirect, render_template]:
     if Qurey_result is None:
         return login_template
     
+    # 读取文章数据
+    blog_posts = []
+    query_post_result = BlogPostOperations().get_by_author(UserName)
+    if query_post_result:
+       blog_posts = query_post_result
+    
     if Qurey_result['keys'] == keys:
         return render_template(
             "content.html",
             userName=UserName,
-            userAvatar=Qurey_result['avatar']
+            userAvatar=Qurey_result['avatar'],
+            blog_posts=blog_posts
         )
 
     return login_template
+
+
+@app.route("/blog_post")
+def blog_post():
+    """
+    通过value值返回文章内容
+    """
+    if not request.args:
+        return "参数缺失！"
+    
+    value = request.args.get("value")
+    if not value:
+        return "参数错误！"
+    
+    value = "/blog_post?value=" + value.strip()
+    get_by_url_result = BlogPostOperations().get_by_url(value)
+    if not get_by_url_result:
+        return "文章不存在！"
+    
+    return render_template(
+        "blog_post.html",
+        post=get_by_url_result
+    )
 
 
 @app.route("/api/login", methods=["POST"])
@@ -122,33 +160,90 @@ def api_login() -> Union[dict, make_response]:
 
     Query_result = UserOperations().QueryUserData(user)
     if Query_result is None:
+        result['content'] = f"未找到此用户！"
+        return result
+    
+    if pwd != Query_result['password']:
+        result['content'] = "密码错误！"
+        return result
+
+    # 数据库更新keys
+    NewKeys = methods.CreateKeys()
+    update_result = UserOperations().update(
+        name=Query_result['name'],
+        updates_dict={
+            "email": Query_result['email'],
+            "password": Query_result['password'],
+            "keys": NewKeys,
+            "avatar": Query_result['avatar']
+        }
+    )
+    if update_result is False:
+        result['content'] = f"更新Keys失败！"
+        return result
+
+    # 通过验证
+    result['code'] = HTTPStatus.OK
+    result['keys'] = NewKeys
+    result['content'] = f"登录成功！欢迎: {user}！"
+
+    # 设置cookie，有效期为30分钟, httponly: 是否允许js获取cookie
+    resp = make_response(result)
+    resp.set_cookie(
+        "user",
+        user,
+        httponly=False,
+        max_age=1800
+    )
+    resp.set_cookie(
+        "keys",
+        result['keys'],
+        httponly=False,
+        max_age=1800
+    )
+    return resp
+
+
+@app.route("/api/quit_login", methods=["POST"])
+def api_quit_login() -> Dict[str, Union[str, int]]:
+    """
+    退出登录接口
+    """
+    result = {"code": HTTPStatus.NOT_FOUND}
+    if not request.json:
+        result['content'] = "参数缺失！"
+        return result
+    
+    cookies: str = request.json.get("cookies")
+    if not cookies:
+        result['content'] = "请传入cookies!"
+        return result
+    
+    cookies_cache = {}
+    for cookie in cookies.split(";", 1):
+        cookie = cookie.split("=", 1)
+        cookies_cache[cookie[0].strip()] = cookie[1]
+    
+    # 读取用户数据用于判断
+    userName = cookies_cache['user']
+    get_result = UserOperations().get(userName)
+    if get_result is None:
         result['content'] = "未找到此用户！"
         return result
     
-    if pwd == Query_result['password']:
-        # 通过验证
-        result['code'] = HTTPStatus.OK
-        result['keys'] = Query_result['keys']
-        result['content'] = f"登录成功！欢迎: {user}！"
+    # 判断keys
+    if cookies_cache['keys'] != get_result['keys']:
+        result['content'] = "数据不匹配！"
+        return result
+    
+    result["code"] = HTTPStatus.OK
+    result["content"] = "/"
+    # 清除所有cookies
+    response = make_response(result)
+    for cookie_name in cookies_cache:
+        response.delete_cookie(cookie_name)
 
-        # 设置cookie，有效期为30分钟
-        resp = make_response(result)
-        resp.set_cookie(
-            "user",
-            user,
-            httponly=True,
-            max_age=1800
-        )
-        resp.set_cookie(
-            "keys",
-            Query_result['keys'],
-            httponly=True,
-            max_age=1800
-        )
-        return resp
-
-    result['content'] = "未找到此用户！"
-    return result
+    return response
 
 
 @app.route("/api/register", methods=["POST"])
@@ -193,7 +288,7 @@ def api_sendCaptcha() -> dict:
     发送验证码
     :return dict
     """
-    result = {"code": HTTPStatus.NO_CONTENT}
+    result = {"code": HTTPStatus.NOT_FOUND}
     to_email_adder = request.json.get("to_email_adder")
     if not to_email_adder:
         return result
@@ -314,7 +409,7 @@ def randomImage() -> Union[redirect, int]:
     if RandomPicture:
         return redirect(result)
     else:
-        return HTTPStatus.NO_CONTENT
+        return HTTPStatus.NOT_FOUND
 
 
 # 其他个人制作界面
@@ -329,6 +424,6 @@ def firefly():
 if __name__ in "__main__":
     app.run(
         host="0.0.0.0",
-        port="8000",
+        port="80",
         debug=True
     )

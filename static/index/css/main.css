@@ -3,14 +3,21 @@ main {
     flex: 1;
 }
 
-/* 白色主题 */
+/* 黑色主题 */
 :root {
+    /* 侧边框背景颜色 */
     --color-menu-bg: rgba(255, 255, 255, 0.1);
+    /* 字体颜色 */
     --font-color-mi: #000;
-    --font-color-mi-hover: #1890ff;
+    /* 字体hover背景颜色 */
+    --font-color-mi-hover: #fff;
+    /* hover背景颜色 */
     --color-bg-mi-hover: rgba(255, 255, 255, 0.1);
+    /* 圆角半径 */
     --border-radius-mi: 2px;
+    /* 过渡动画 */
     --transition-menu-time: 0.2s;
+    /* 分隔符颜色 */
     --color-line-bg: rgba(255, 255, 255, 0.1);
 }
 
@@ -137,7 +144,7 @@ main {
 }
 
 .menu-item>input#menu-item3:checked~.menu-content {
-    height: calc(2 * 40px);
+    height: calc(3 * 40px);
 }
 
 .menu-item>input#menu-item4:checked~.menu-content {

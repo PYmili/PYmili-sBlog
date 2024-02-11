@@ -11,6 +11,10 @@ def ToBase64(source: bytes, file_type: str) -> str:
     return result
 
 
+def Base64ToBytes(Base: str) -> bytes:
+    return base64.b64decode(Base)
+
+
 def CreateKeys(length: int = 64) -> str:
     """
     创建一个指定长度的随机字符串作为keys值。
