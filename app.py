@@ -86,7 +86,7 @@ def register() -> render_template:
 @app.route("/content", methods=["GET"])
 def content() -> Union[redirect, render_template]:
     """
-    登录后的界面
+    登录后的内容显示主界面
     :return: Union[redirect, render_template]
     """
     # 获取用户名与key值
@@ -142,6 +142,94 @@ def blog_post():
         "blog_post.html",
         post=get_by_url_result
     )
+
+
+@app.route("/creative_center")
+def creative_center():
+    """
+    创作中心界面
+    """
+    content = redirect("/content")
+    creative_center_template = render_template("creative_center.html")
+
+    if not request.cookies:
+        return content
+    
+    userName = request.cookies.get("user")
+    keys = request.cookies.get("keys")
+    if not all([userName, keys]):
+        return content
+    
+    Query_result = UserOperations().QueryUserData(userName)
+    if not Query_result:
+        return content
+    
+    if keys != Query_result['keys']:
+        return content
+    
+    get_by_result = BlogPostOperations().get_by_author(userName)
+
+    return render_template(
+        "creative_center.html",
+        blog_posts=get_by_result
+    )
+
+
+@app.route("/api/upload_post", methods=["POST"])
+def upload_post() -> dict:
+    """
+    上传文章
+    :reutrn dict
+    """
+    result = {
+        "code": HTTPStatus.NO_CONTENT,
+        "content": "缺少参数！"
+    }
+    if not request.json or not request.cookies:
+        return result
+    
+    title = request.json.get("title")
+    excerpt = request.json.get("excerpt")
+    text = request.json.get("text")
+    image = request.json.get("image")
+    if not all([title, excerpt, text, image]):
+        return result
+    
+    image_bytes = image
+    userName = request.cookies.get("user")
+    keys = request.cookies.get("keys")
+    if not all([userName, keys]):
+        return result
+    
+    get_result = UserOperations().get(userName)
+    if not get_result:
+        result['content'] = "此用户未找到！"
+        return result
+    if keys != get_result['keys']:
+        result['content'] = "用户参数错误！"
+        return result
+    
+    image_type = str(image).split(";", 1)[0].split("/", 1)[-1]
+    if image_type not in ['jpg', 'png', 'jpeg', 'bmp', 'gif']:
+        image_type = "jpg"
+    insert_result = BlogPostOperations().insert_new_article(
+        author=userName,
+        insert_data={
+            "title": title,
+            "excerpt": excerpt,
+            "image_type": image_type,
+            "image": image,
+            "text": text,
+            "url": "/blog_post?value=" + methods.CreateKeys()
+        }
+    )
+    if not insert_result:
+        result['content'] = "保存失败！"
+        return result
+    
+    result['code'] = HTTPStatus.OK
+    result['content'] = "保存成功！"
+    return result
 
 
 @app.route("/api/login", methods=["POST"])

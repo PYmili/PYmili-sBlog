@@ -2,6 +2,8 @@ import base64
 import string
 import random
 
+from requests import get
+
 
 def ToBase64(source: bytes, file_type: str) -> str:
     result = ""
@@ -32,3 +34,15 @@ def CreateKeys(length: int = 64) -> str:
     keys = ''.join(random.choice(characters) for _ in range(length))
     
     return keys
+
+
+def getUrlImageBytes(url: str) -> bytes:
+    """
+    获取网络图片的二进制数据
+    """
+    result = b'NULL'
+    with get(url) as response:
+        if response.status_code == 200:
+            result = response.content
+    
+    return result
