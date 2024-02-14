@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/firefly/css/firefly.css">
+  <link rel="stylesheet" href="/static/firefly/css/iconfont.css">
   <title>梦幻向导 - 流萤</title>
 </head>
 <body>
   <div id="video-background">
-    <video autoplay muted loop poster="/static/firefly/images/poster-image.png" id="bg-video">
+    <video autoplay loop muted poster="/static/firefly/images/poster-image.png" id="bg-video">
       <source src="/static/firefly/video/background-video.mp4" type="video/mp4">
       您的浏览器不支持视频标签。
     </video>
@@ -18,6 +19,14 @@
 
   <!-- 其他内容区域 -->
   <section id="content">
+
+      <!-- 新增：音频元素，隐藏但保持加载 -->
+  <audio id="bg-audio" preload="auto" src="/static/firefly/audio/background-audio.mp3"></audio>
+
+  <!-- 新增：音频控制按钮 -->
+  <div id="audio-control">
+    <button id="play-audio-btn" class="iconfont icon-bofang"></button>
+  </div>
 
     <div class="character-intro">
         <h1>这里是PYmili为《崩坏：星穹铁道》角色流萤精心打造的专题展示。</h1>
@@ -63,7 +72,31 @@
     </div>
 
   </section>
-
   <script src="/static/firefly/js/firefly.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const bgAudio = document.getElementById('bg-audio');
+      const playBtn = document.getElementById('play-audio-btn');
+
+      // 给播放按钮绑定事件监听器
+      playBtn.addEventListener('click', function() {
+        if (bgAudio.paused || bgAudio.ended) {
+          // 如果音频暂停或已播放结束，则开始播放
+          bgAudio.play();
+          playBtn.className = "iconfont icon-zanting";
+          
+          // 添加音频结束事件监听，以便循环播放
+          bgAudio.addEventListener('ended', () => {
+            bgAudio.currentTime = 0; // 回到开头
+            bgAudio.play(); // 再次播放
+          });
+        } else {
+          // 如果音频正在播放，则暂停播放
+          bgAudio.pause();
+          playBtn.className = "iconfont icon-bofang";
+        }
+      });
+    });
+  </script>
 </body>
 </html>

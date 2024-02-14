@@ -36,6 +36,42 @@ body, html {
     object-fit: cover; /* 保持视频填充容器并保持纵横比 */
 }
 
+/* 音频控制按钮区域样式 */
+#audio-control {
+    position: fixed;
+    z-index: 100; /* 确保按钮始终在最上层 */
+    bottom: 20px; /* 将按钮放在页面底部，距离底部有一定间距 */
+    right: 20px; /* 按钮靠右放置，与屏幕右侧有一定的间距 */
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3); /* 设置背景颜色为半透明白色 */
+    border-radius: 10px; /* 添加圆角 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+  
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      bottom: 10px;
+      right: 10px;
+    }
+}
+
+/* 播放/暂停按钮样式 */
+#play-audio-btn {
+    cursor: pointer;
+    font-size: 2rem; /* 调整字体大小 */
+    color: #fff; /* 字体颜色设为白色 */
+    background-color: transparent; /* 去除背景色 */
+    border: none; /* 去除边框 */
+    outline: none; /* 去除聚焦时的轮廓线 */
+    transition: all 0.2s ease-in-out; /* 添加过渡动画 */
+  
+    &:hover,
+    &:focus {
+      color: #ccc; /* 鼠标悬停和聚焦时，改变字体颜色 */
+    }
+}
+
 /* 页面其他内容样式 */
 #content {
     position: relative;
@@ -188,4 +224,69 @@ body, html {
     opacity: 1;
     /* 位置还原 */
     transform: translateY(0);
+}
+    
+/* 媒体查询以适应移动设备 */
+@media (max-width: 768px) {
+    /* 背景视频和遮罩层适配 */
+    body, html {
+      height: 100%;
+    }
+  
+    #video-background,
+    #bg-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; /* 确保背景视频位于内容之下 */
+    }
+  
+    #video-mask {
+      position: fixed;
+      z-index: 0; /* 遮罩层在背景视频之上，在内容之下 */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  
+    /* 页面整体内容区域样式调整 */
+    #content {
+      position: relative;
+      z-index: 1; /* 内容显示在遮罩层之上 */
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .box {
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .card {
+      width: 90%;
+      margin: 0 auto;
+      aspect-ratio: 9/16;
+    }
+  
+    .card img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  
+    .card .text-box {
+      font-size: 1.1rem;
+      padding: 10px;
+    }
+  
+    .card .text-box h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
 }
