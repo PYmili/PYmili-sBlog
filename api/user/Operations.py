@@ -40,7 +40,7 @@ class UserOperations(DBoperations.Operations):
             email=otherData['email'],
             password=otherData['password'],
             keys=CreateKeys(),
-            avatar=ToBase64(otherData['avatar'], "jpg")
+            avatar=otherData['avatar']
         )
         return create_result
     

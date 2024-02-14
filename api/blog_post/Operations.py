@@ -18,17 +18,13 @@ class BlogPostOperations(DBoperaions.Operations):
                     [title str]: [文章标题]
                     [excerpt str]: [文章摘要]
                     [url str]: [文章链接]
-                    [image_type str]: [图片类型]
-                    [image str]: [图片数据 base64]
+                    [image bytes]: [图片数据]
                     [text str]: [正文]
                 }
         :return Union[int, None]
         """
 
         if not insert_data['url']:
-            return None
-        
-        if type(insert_data['image']).__name__ != "str":
             return None
         
         all_url_query = """SELECT url FROM blog_posts;"""
@@ -42,7 +38,6 @@ class BlogPostOperations(DBoperaions.Operations):
             title=insert_data['title'] if insert_data['title'] else "NULL",
             excerpt=insert_data['excerpt'] if insert_data['excerpt'] else "NULL",
             url=insert_data['url'],
-            image_type=insert_data['image_type'] if insert_data['image_type'] else "jpg",
             image=insert_data['image'],
             text=insert_data['text'] if insert_data['text'] else "NULL"
         )
@@ -79,9 +74,8 @@ class BlogPostOperations(DBoperaions.Operations):
             "title": data[2],
             "excerpt": data[3],
             "url": data[4],
-            "image_type": data[5],
-            "image": data[6],
-            "text": data[7],
-            'upload_time': data[8]
+            "image": data[5],
+            "text": data[6],
+            'upload_time': data[7]
         }
     

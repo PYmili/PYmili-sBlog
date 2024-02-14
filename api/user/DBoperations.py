@@ -21,7 +21,7 @@ class Operations:
                 email TEXT UNIQUE,
                 password TEXT,
                 keys TEXT,
-                avatar TEXT
+                avatar BLOB
             );
         """
         self.cursor.execute(create_table_query)
@@ -68,7 +68,7 @@ class Operations:
             return False
 
         insert_query = "INSERT INTO users (name, email, password, keys, avatar) VALUES (?, ?, ?, ?, ?)"
-        self.cursor.execute(insert_query, (name, email, password, keys, avatar))
+        self.cursor.execute(insert_query, (name, email, password, keys, sqlite3.Binary(avatar)))
         self.SqliteConnect.commit()
 
         return True  # 成功创建
@@ -89,6 +89,7 @@ class Operations:
                         'avatar': 'new_avatar_data'
                     }
         """
+        updates_dict['avatar'] = sqlite3.Binary(updates_dict['avatar'])
         set_clause = ", ".join([f"{field} = ?" for field in updates_dict.keys() if updates_dict[field] is not None])
         values = list(updates_dict.values())
         values.append(name)
