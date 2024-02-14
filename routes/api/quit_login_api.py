@@ -48,7 +48,7 @@ def api_quit_login(
         return result
     
     # 删除缓存
-    cache_path = os.path.join(cache_methods.CACHE_PATH, "static\\cache", userName)
+    cache_path = os.path.join(cache_methods.CACHE_PATH, userName)
     if os.path.isdir(cache_path):
         for path, _, files in os.walk(cache_path):
             for file in files:
