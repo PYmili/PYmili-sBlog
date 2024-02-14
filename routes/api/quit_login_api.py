@@ -21,29 +21,24 @@ def api_quit_login(
     :return: Dict[str, Union[str, int]]
     """
     result = {"code": HTTPStatus.NOT_FOUND}
-    if not request.json:
+    if not request.cookies:
         result['content'] = "参数缺失！"
         return result
     
-    cookies: str = request.json.get("cookies")
-    if not cookies:
-        result['content'] = "请传入cookies!"
+    userName = request.cookies.get("user")
+    keys = request.cookies.get("keys")
+    if not all([userName, keys]):
+        result['content'] = "参数缺失！"
         return result
     
-    cookies_cache = {}
-    for cookie in cookies.split(";", 1):
-        cookie = cookie.split("=", 1)
-        cookies_cache[cookie[0].strip()] = cookie[1]
-    
     # 读取用户数据用于判断
-    userName = cookies_cache['user']
     get_result = UserOperations().get(userName)
     if get_result is None:
         result['content'] = "未找到此用户！"
         return result
     
     # 判断keys
-    if cookies_cache['keys'] != get_result['keys']:
+    if keys != get_result['keys']:
         result['content'] = "数据不匹配！"
         return result
     
@@ -65,7 +60,7 @@ def api_quit_login(
     result["content"] = "/"
     # 清除所有cookies
     response = make_response(result)
-    for cookie_name in cookies_cache:
-        response.delete_cookie(cookie_name)
+    for key in request.cookies.keys():
+        response.delete_cookie(key)
 
     return response

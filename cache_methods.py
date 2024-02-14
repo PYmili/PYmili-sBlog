@@ -2,7 +2,7 @@ import os
 from loguru import logger
 
 # 存放文件缓存路径
-CACHE_PATH = os.path.join(os.getcwd(), "static\\cache")
+CACHE_PATH = os.path.join(os.getcwd(), "static/cache")
 
 
 def blog_posts_image_method(query_post_result: list) -> list:

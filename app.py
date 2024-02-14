@@ -1,5 +1,3 @@
-import os
-import random
 from http import HTTPStatus
 from typing import Dict, Union
 
@@ -8,7 +6,6 @@ from flask import request
 from flask import make_response
 from flask import render_template
 from flask import redirect
-from flask import url_for
 from flask_cors import CORS
 
 # api

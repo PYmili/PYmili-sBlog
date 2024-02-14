@@ -24,9 +24,7 @@ function quitEvent() {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            cookies: cookie
-        }),
+        body: JSON.stringify({}),
     })
     .then(response => response.json())
     .then(data => {
