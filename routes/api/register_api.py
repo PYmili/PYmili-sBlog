@@ -24,9 +24,14 @@ def api_register(
     password = request.form.get("password")
     email = request.form.get("email")
     captcha = request.form.get("captcha")
-
     if not all([username, password, email]):
         return """<h1 algin="center">缺少参数！</h1>"""
+    
+    queryuser = UserOperations().QueryUserData()
+    if queryuser:
+        return f"""<h1 algin="center">用户已存在，请登录</h1>"""
+    if email == queryuser['email']:
+        return f"""<h1 algin="center">email已注册过，请登录</h1>"""
     
     state, msg = VerificationCodeService().verify_code(email, captcha)
     if state is False:
