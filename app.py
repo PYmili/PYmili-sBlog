@@ -6,7 +6,12 @@ from flask import request
 from flask import make_response
 from flask import render_template
 from flask import redirect
+from flask import send_file
 from flask_cors import CORS
+
+# 用于限制单个ip的http请求
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 # api
 from api import RandomSentence  # 随机一言
@@ -42,6 +47,16 @@ app = Flask(
     template_folder="templates"
 )
 CORS(app)
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=["50/minute"]
+)
+limiter.init_app(app)
+
+# 请求频率超过限制页面
+@app.errorhandler(429)
+def handle_rate_limit_exceeded(e):
+    return render_template("rate_limit_exceed.html"), 429
 
 
 @app.route("/", methods=["GET"])
@@ -273,9 +288,18 @@ def firefly():
     return render_template("firefly.html")
 
 
+# 其他个人制作界面
+@app.route("/102081154.json")
+def qq_robot_verification():
+    """
+    qq 机器人 域名 验证
+    """
+    return send_file("static/QQRobotLittleQCache/102081154.json")
+
+
 if __name__ in "__main__":
     app.run(
         host="0.0.0.0",
-        port="80",
+        port="8000",
         debug=True
     )

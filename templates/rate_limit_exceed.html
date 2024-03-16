@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>请求次数过多</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: rgba(37, 8, 65, 0.712);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+        }
+
+        .error-container {
+            background-color: rgba(91, 47, 194, 0.5);
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(54, 54, 54, 0.1);
+        }
+
+        h1 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            color: rgba(46, 10, 177, 0.664);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background-size: contain;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1>请求次数过多</h1>
+        <p>请稍后再试或者降低请求频率。</p>
+    </div>
+
+    <script>
+        // 图片文件名数组
+        const images = ['qianzhi.png', 'naiweiya.png', 'leidianjiangjun.png'];
+
+        // 获取 body 元素
+        const body = document.querySelector('body');
+
+        // 随机获取图片名并设置为背景图片
+        function setRandomBackgroundImage() {
+            const randomIndex = Math.floor(Math.random() * images.length);
+            const imageUrl = "static/rate_limit_exceed/images/" + images[randomIndex];
+            body.style.backgroundImage = `url(${imageUrl})`;
+        }
+
+        // 在页面加载完成后执行
+        window.onload = () => {
+            setRandomBackgroundImage();
+        };
+    </script>
+</body>
+</html>
