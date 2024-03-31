@@ -7,7 +7,7 @@ from flask import render_template
 
 
 def content(
-        UserOperations: Any,
+        User: Any,
         BlogPostOperations: Any,
         cache_methods: Any,
         ToBase64: Any
@@ -15,7 +15,7 @@ def content(
     """
     登录后的内容显示主界面
     :params
-        UserOperations Any: 用于获取用户数据
+        UsersDatabase.Users Any: 用于获取用户数据
         BlogPostOperations Any: 用于获取文章数据
         cache_methods Any: 调用缓存方法
         methods.ToBase64 Any: 用于base64数据转换
@@ -32,7 +32,10 @@ def content(
         return login_template
 
     # 验证数据
-    Qurey_result = UserOperations().QueryUserData(UserName)
+    Qurey_result = None
+    with User() as user:
+        Qurey_result = user.select_by_username(UserName)
+
     if Qurey_result is None:
         return login_template
     
@@ -50,7 +53,7 @@ def content(
     else:
         avatar = ToBase64(Qurey_result['avatar'], "jpg")
 
-    if Qurey_result['keys'] == keys:
+    if Qurey_result['user_key'] == keys:
         return render_template(
             "content.html",
             userName=UserName,

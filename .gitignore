@@ -164,3 +164,6 @@ cython_debug/
 
 # Test Code
 test.py
+
+# sql command
+*.sql

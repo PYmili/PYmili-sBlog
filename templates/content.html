@@ -5,6 +5,7 @@
     <link rel="icon" href="{{ url_for('static', filename='index/resource/icon.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', filename='content/css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='content/css/iconfont.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='loading/css/loading.css') }}">
     <title>{{ userName }}的主页</title>
 </head>
 <body>
@@ -115,7 +116,10 @@
             </ul>
         </div>
     </main>
-
+    <div id="loading-overlay" class="loading-overlay">
+        <!-- 在这里放置加载动画的内容 -->
+        <div class="loader"></div>
+    </div>
 </body>
     <script src="{{ url_for('static', filename='content/js/LeftMenu.js') }}"></script>
     <script src="{{ url_for('static', filename='content/js/quit.js') }}"></script>

@@ -6,14 +6,14 @@ from flask import request
 
 
 def upload_post(
-        UserOperations: Any,
+        User: Any,
         BlogPostOperations: Any,
         CreateKeys: Any
     ) -> dict:
     """
     上传文章
     :params
-        UserOperations Any: 用户数据操作,
+        UsersDatabase.Users Any: 用户数据操作,
         BlogPostOperations Any: 文章数据操作,
         methods.CreateKeys Any: 新建Keys
     :reutrn dict
@@ -37,11 +37,13 @@ def upload_post(
     if not all([userName, keys]):
         return result
     
-    get_result = UserOperations().get(userName)
+    get_result = None
+    with User() as user:
+        get_result = user.get(userName)
     if not get_result:
         result['content'] = "此用户未找到！"
         return result
-    if keys != get_result['keys']:
+    if keys != get_result['user_key']:
         result['content'] = "用户参数错误！"
         return result
 

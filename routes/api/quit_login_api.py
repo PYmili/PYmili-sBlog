@@ -8,14 +8,14 @@ from loguru import logger
 
 
 def api_quit_login(
-        UserOperations: Any,
+        User: Any,
         cache_methods: Any,
         CreateKeys: Any
     ) -> Dict[str, Union[str, int]]:
     """
     退出登录接口
     :params
-        UserOperations Any: 用户数据操作,
+        UsersDatabase.Users Any: 用户数据操作,
         cache_methods Any: 调用缓存方法
         methods.CreateKeys Any: 新建Keys
     :return: Dict[str, Union[str, int]]
@@ -32,13 +32,15 @@ def api_quit_login(
         return result
     
     # 读取用户数据用于判断
-    get_result = UserOperations().get(userName)
+    get_result = None
+    with User() as user:
+        get_result = user.select_by_username(userName)
     if get_result is None:
         result['content'] = "未找到此用户！"
         return result
     
     # 判断keys
-    if keys != get_result['keys']:
+    if keys != get_result['user_key']:
         result['content'] = "数据不匹配！"
         return result
     

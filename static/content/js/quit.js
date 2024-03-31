@@ -1,3 +1,11 @@
+function showLoader() {
+    document.getElementById("loading-overlay").style.display = "block";
+} 
+  
+function hideLoader() {
+    document.getElementById("loading-overlay").style.display = "none";
+}  
+
 // 寻找页面上的“退出登录”元素
 var quitLink = document.querySelector('.quit a');
 
@@ -11,6 +19,7 @@ quitLink.addEventListener('click', function(event) {
 });
 
 function quitEvent() {
+    showLoader(); // 显示加载动画
     var cookie = document.cookie
     if (cookie === "") {
         alert("退出失败！");
@@ -28,6 +37,7 @@ function quitEvent() {
     })
     .then(response => response.json())
     .then(data => {
+        hideLoader(); // 关闭动画
         // 处理 API 返回的数据
         if (data['code'] == 200) {
             window.location.href = data['content'];
@@ -37,5 +47,8 @@ function quitEvent() {
             console.log(document.cookie);
         }
     })
-    .catch(error => console.error("获取数据时出错：", error));
+    .catch(error => {
+        hideLoader(); // 关闭动画
+        console.error("获取数据时出错：", error)
+    });
 }  

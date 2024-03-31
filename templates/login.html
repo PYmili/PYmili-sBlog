@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='index/resource/icon.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', filename='login/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='loading/css/loading.css') }}">
     <script src="{{ url_for('static', filename='login/js/main.js') }}"></script>
     <title>登录</title>
 </head>
-<body>
+<body>    
     <div class="content">
         <div class="login-wrapper">
             <div class="left-img">
@@ -65,6 +66,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="loading-overlay" class="loading-overlay">
+        <!-- 在这里放置加载动画的内容 -->
+        <div class="loader"></div>
     </div>
 </body>
 </html>

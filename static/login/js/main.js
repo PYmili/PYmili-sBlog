@@ -1,5 +1,13 @@
 let resizeTimer;
 
+function showLoader() {
+  document.getElementById("loading-overlay").style.display = "block";
+}
+
+function hideLoader() {
+  document.getElementById("loading-overlay").style.display = "none";
+}
+
 async function fetchBackgroundImage(apiEndpoint) {
   try {
     const response = await fetch(apiEndpoint);
@@ -72,15 +80,10 @@ function isValidUsername(username) {
 
 // 定义登录函数
 function login() {
+    showLoader(); // 显示加载动画
     // 获取用户名和密码输入框的值
     var usernameValue = document.getElementById("usernameInput").value;
     var passwordValue = document.getElementById("passwordInput").value;
-
-    // 检查是否填入数据
-    // if (usernameValue == null || passwordValue == null) {
-    //     alert('请输入用户名和密码！');
-    //     return;
-    // }
 
     // 检查用户名和密码是否有数据
     if (usernameValue.trim() === '' || passwordValue.trim() === '') {
@@ -98,7 +101,6 @@ function login() {
         user: usernameValue,
         pwd: passwordValue
     };
-
     // 发送 POST 请求到 /api/login 接口
     fetch('/api/login', {
         method: 'POST',
@@ -110,6 +112,7 @@ function login() {
     })
     .then(response => response.json())
     .then(data => {
+        hideLoader(); // 隐藏动画
         // console.log(data);
         // 处理从服务器返回的数据
         if (data['code'] == 200) {
@@ -119,6 +122,7 @@ function login() {
         }
     })
     .catch(error => {
+        hideLoader(); // 隐藏动画
         console.error('发生错误:', error);
     });
 }

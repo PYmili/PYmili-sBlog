@@ -16,11 +16,12 @@ from flask_limiter.util import get_remote_address
 # api
 from api import RandomSentence  # 随机一言
 from api import RandomPicture   # 随机图片
-from api import UserOperations
 from api import Gallery
 from api import BlogPostOperations
 from api import VerificationCodeService
 from api import methods
+
+from database import UsersDatabase
 
 # cache
 import cache_methods
@@ -37,7 +38,6 @@ from routes.api import (
     upload_post_api,
     login_api,
     quit_login_api,
-    register_api,
     login_random_img_api
 )
 
@@ -74,7 +74,7 @@ def login() -> Union[render_template, redirect]:
     登录界面
     :return: Union[render_template, redirect]
     """
-    return login_route.login(RandomSentence, UserOperations)
+    return login_route.login(RandomSentence, UsersDatabase.Users)
 
 
 @app.route("/register")
@@ -93,7 +93,7 @@ def content() -> Union[redirect, render_template]:
     :return: Union[redirect, render_template]
     """
     return content_route.content(
-        UserOperations,
+        UsersDatabase.Users,
         BlogPostOperations,
         cache_methods,
         methods.ToBase64
@@ -131,7 +131,7 @@ def creative_center() -> Union[redirect, render_template]:
     创作中心界面
     """
     return creatvie_center_route.creative_center(
-        UserOperations,
+        UsersDatabase.Users,
         BlogPostOperations,
         cache_methods
     )
@@ -144,7 +144,7 @@ def upload_post() -> dict:
     :reutrn dict
     """
     return upload_post_api.upload_post(
-        UserOperations,
+        UsersDatabase.Users,
         BlogPostOperations,
         methods.CreateKeys
     )
@@ -157,7 +157,7 @@ def api_login() -> Union[dict, make_response]:
     :return: Union[dict, make_response]
     """
     return login_api.api_login(
-        UserOperations,
+        UsersDatabase.Users,
         cache_methods,
         methods.CreateKeys
     )
@@ -170,24 +170,10 @@ def api_quit_login() -> Dict[str, Union[str, int]]:
     :return: Dict[str, Union[str, int]]
     """
     return quit_login_api.api_quit_login(
-        UserOperations,
+        UsersDatabase.Users,
         cache_methods,
         methods.CreateKeys
     )
-
-
-@app.route("/api/register", methods=["POST"])
-def api_register() -> Union[redirect, str]:
-    """
-    注册接口
-    :return dict
-    """
-    return register_api.api_register(
-        UserOperations,
-        VerificationCodeService,
-        methods.CreateKeys
-    )
-
 
 @app.route("/api/send_captcha", methods=["POST"])
 def api_sendCaptcha() -> dict:
@@ -300,6 +286,6 @@ def qq_robot_verification():
 if __name__ in "__main__":
     app.run(
         host="0.0.0.0",
-        port="8000",
+        port="8990",
         debug=True
     )

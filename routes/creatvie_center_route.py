@@ -7,14 +7,14 @@ from flask import render_template
 
 
 def creative_center(
-        UserOperations: Any,
+        User: Any,
         BlogPostOperations: Any,
         cache_methods: Any
 ) -> Union[redirect, render_template]:
     """
     创作中心界面
     :params
-        UserOperations Any: 用户数据操作,
+        UsersDatabase.Users Any: 用户数据操作,
         BlogPostOperations Any: 文章数据操作,
         cache_methods Any: 缓存操作
     """
@@ -28,11 +28,13 @@ def creative_center(
     if not all([userName, keys]):
         return content
     
-    Query_result = UserOperations().QueryUserData(userName)
+    Query_result = None
+    with User() as user:
+        Query_result = user.QueryUserData(userName)
     if not Query_result:
         return content
     
-    if keys != Query_result['keys']:
+    if keys != Query_result['user_key']:
         return content
     
     get_by_result = BlogPostOperations().get_by_author(userName)

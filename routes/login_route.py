@@ -7,7 +7,7 @@ from flask import render_template
 
 def login(
         RandomSentence: Any,
-        UserOperations: Any
+        Users: Any
     ) -> Union[render_template, redirect]:
     """
     登录界面
@@ -26,11 +26,14 @@ def login(
         return loginRenderTemplate
 
     # 验证user, keys
-    Qurey_result = UserOperations().QueryUserData(UserName)
+    Qurey_result = None
+    with Users() as user:
+        Qurey_result = user.select_by_username(UserName)
+
     if Qurey_result is None:
         return loginRenderTemplate
     
-    if Qurey_result['keys'] == keys:
+    if Qurey_result['user_key'] == keys:
         return redirect("/content")
 
     return loginRenderTemplate
