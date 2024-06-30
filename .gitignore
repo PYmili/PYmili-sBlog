@@ -167,3 +167,5 @@ test.py
 
 # sql command
 *.sql
+
+*.sql_host.txt

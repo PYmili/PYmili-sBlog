@@ -1,3 +1,4 @@
+import os
 from http import HTTPStatus
 from typing import Dict, Union
 
@@ -274,6 +275,24 @@ def firefly():
     return render_template("firefly.html")
 
 
+# MyFlowingFireflyWife page.
+@app.route("/MyFlowingFireflyWife")
+def MyFlowingFireflyWife():
+    """
+    MyFlowingFireflyWife Page.
+    """
+    versions = []
+    for paths, _, files, in os.walk("static/MyFlowingFireflyWife/setup/"):
+        for file in files:
+            versions.append({
+                "version": os.path.split(paths)[1],
+                "url": paths + "/" + file,
+                "filename": file
+            })
+
+    return render_template("MyFlowingFireflyWife.html", versions=versions)
+
+
 # 其他个人制作界面
 @app.route("/102081154.json")
 def qq_robot_verification():
@@ -286,6 +305,6 @@ def qq_robot_verification():
 if __name__ in "__main__":
     app.run(
         host="0.0.0.0",
-        port="8990",
+        port="8888",
         debug=True
     )

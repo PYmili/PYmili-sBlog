@@ -1,0 +1,6 @@
+
+HOST = "47.108.64.239"
+PORT = 3306
+USER = "root"
+PASSWORD = "pymili_blog_mysql"
+DATADASE = "pymili_blog"
