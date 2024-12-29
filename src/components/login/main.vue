@@ -64,146 +64,146 @@ function tiggerUserLogin() {
 </script>
 
 <style scoped>
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  width: 100%;
-  padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.login-card {
-  width: 100%; /* 使登录卡片宽度自适应 */
-  max-width: 950px; /* 设置一个最大宽度，可根据需要调整 */
-  border-radius: 20px;
-  overflow: hidden; /* 去除多余的阴影 */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  background-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  display: flex;
-  flex-direction: column;
-}
-
-.login-content {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  min-height: 0; 
-}
-
-.image-container {
-  flex: 1; /* 使图片容器与表单容器等宽 */
-  overflow: hidden;
-  position: relative;
-}
-
-.login-image {
-  width: 100%;
-  height: 100%; /* 使图片高度自适应 */
-  object-fit: cover;
-  object-position: center;
-  border-radius: 15px 0 0 15px;
-}
-
-.form-container {
-  flex: 2; /* 使表单容器与图片容器等宽 */
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto; 
-  max-height: 100%; 
-}
-
-.login-title {
-  text-align: center;
-  color: #409EFF;
-  font-size: 24px;
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-
-.login-button {
-  width: 100%;
-  height: 40px;
-  font-size: 16px;
-  font-weight: 600;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  transition: all 0.3s ease;
-}
-
-.login-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.additional-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 15px;
-}
-
-:deep(.el-input__wrapper) {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-}
-
-:deep(.el-input__inner) {
-  height: 40px;
-}
-
-:deep(.el-form-item__label) {
-  font-weight: 600;
-  color: #606266;
-}
-
-:deep(.el-checkbox__label) {
-  color: #606266;
-}
-
-:deep(.el-link) {
-  font-weight: 600;
-}
-
-:deep(.el-card__body) {
-  height: 100%;
-  padding: 0;
-}
-
-:deep(.el-form) {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-:deep(.el-form-item) {
-  margin-bottom: 15px;
-}
-
-:deep(.el-form-item:last-child) {
-  margin-top: auto;
-  margin-bottom: 0;
-}
-
-@media (max-width: 768px) {
-  .login-card {
-    max-width: 100%;
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   }
-  .login-content {
+
+  .login-card {
+    width: 100%; /* 使登录卡片宽度自适应 */
+    max-width: 950px; /* 设置一个最大宽度，可根据需要调整 */
+    border-radius: 20px;
+    overflow: hidden; /* 去除多余的阴影 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    display: flex;
     flex-direction: column;
   }
-  
-  .image-container {
-    flex: 0 0 0;
-  }
-  
-  .form-container {
+
+  .login-content {
     flex: 1;
-    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    min-height: 0; 
   }
-}
+
+  .image-container {
+    flex: 1; /* 使图片容器与表单容器等宽 */
+    overflow: hidden;
+    position: relative;
+  }
+
+  .login-image {
+    width: 100%;
+    height: 100%; /* 使图片高度自适应 */
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px 0 0 15px;
+  }
+
+  .form-container {
+    flex: 2; /* 使表单容器与图片容器等宽 */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; 
+    max-height: 100%; 
+  }
+
+  .login-title {
+    text-align: center;
+    color: #409EFF;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .login-button {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .login-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .additional-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  :deep(.el-input__wrapper) {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+  }
+
+  :deep(.el-input__inner) {
+    height: 40px;
+  }
+
+  :deep(.el-form-item__label) {
+    font-weight: 600;
+    color: #606266;
+  }
+
+  :deep(.el-checkbox__label) {
+    color: #606266;
+  }
+
+  :deep(.el-link) {
+    font-weight: 600;
+  }
+
+  :deep(.el-card__body) {
+    height: 100%;
+    padding: 0;
+  }
+
+  :deep(.el-form) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  :deep(.el-form-item) {
+    margin-bottom: 15px;
+  }
+
+  :deep(.el-form-item:last-child) {
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .login-card {
+      max-width: 100%;
+    }
+    .login-content {
+      flex-direction: column;
+    }
+    
+    .image-container {
+      flex: 0 0 0;
+    }
+    
+    .form-container {
+      flex: 1;
+      padding: 20px;
+    }
+  }
 </style>
 
