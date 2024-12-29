@@ -46,5 +46,6 @@ jobs:
           # 部署目录
           build_dir: dist
         env:
+          # 设置github token，使用secrets
           # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
           GITHUB_TOKEN: ${{ secrets.PAGE_ACTION_TOKEN }}
