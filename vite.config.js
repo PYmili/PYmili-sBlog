@@ -20,5 +20,12 @@ export default defineConfig({
     preprocessorOptions: {
       scss: { api: 'modern-compiler' },
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      }
+    }
   }
 })
