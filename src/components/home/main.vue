@@ -59,12 +59,12 @@ import PlatformAccountVue from "@/components/home/main/PlatformAccount.vue";
 import MyLifeVue from "@/components/home/main/MyLife.vue"
 
 let carouselArray = ref([
-    "/images/main/carousel-1.jpg",
-    "/images/main/carousel-2.jpg",
-    "/images/main/carousel-3.png",
-    "/images/main/carousel-4.jpg",
-    "/images/main/carousel-5.jpg",
-    "/images/main/carousel-6.jpg",
+    import.meta.env.BASE_URL + "/images/main/carousel-1.jpg",
+    import.meta.env.BASE_URL + "/images/main/carousel-2.jpg",
+    import.meta.env.BASE_URL + "/images/main/carousel-3.png",
+    import.meta.env.BASE_URL + "/images/main/carousel-4.jpg",
+    import.meta.env.BASE_URL + "/images/main/carousel-5.jpg",
+    import.meta.env.BASE_URL +  "/images/main/carousel-6.jpg",
 ])
 
 </script>
