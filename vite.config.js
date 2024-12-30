@@ -10,7 +10,7 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
-  base: './',
+  base: '/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -19,13 +19,6 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: { api: 'modern-compiler' },
-    }
-  },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: undefined,
-      }
     }
   }
 })
