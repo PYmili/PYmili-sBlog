@@ -1,5 +1,5 @@
 <template>
-    <AlertVue ref="AlertVueRef"></AlertVue>
+  <AlertVue ref="AlertVueRef"></AlertVue>
 </template>
 
 <script setup>
@@ -25,6 +25,15 @@ function showAlert(params) {
 const { cookies } = useCookies()
 // router
 const router = useRouter()
+// axios create
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_API_HOST,
+  // withCredentials: true,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  }
+});
 
 // 判断是否已登录
 function isLogin() {
@@ -43,11 +52,7 @@ async function handleUserLogin(params) {
   });
   // console.log(data)
   
-  await axios.post('http://localhost:8080/user/login', data, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
+  await apiClient.post('/user/login', data)
     .then(response => {
       // console.log(response.data);
       if (response.data.code !== 200) {
@@ -95,5 +100,4 @@ defineExpose({
 </script>
 
 <style>
-
 </style>

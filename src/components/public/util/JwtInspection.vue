@@ -17,7 +17,7 @@ const alertRef = ref(null)
 const router = useRouter()
 const { cookies } = useCookies()
 
-const api_url = 'http://localhost:8080/user/user_info'
+const api_url = `${import.meta.env.VITE_API_HOST}/user/user_info`
 
 function showAlert(params) {
   if (alertRef.value) {

@@ -29,7 +29,7 @@ import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
 const blogs = ref([]);
-const api_url = "http://localhost:8080/blogs/find_all";
+const api_url = `${import.meta.env.VITE_API_HOST}/blogs/find_all`
 
 async function requestBlogs() {
   const data = {
