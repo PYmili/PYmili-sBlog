@@ -13,7 +13,7 @@
       </div>
       <template #footer>
         <div class="link">
-          <a href="#">{{ item.introduction }}</a>
+          <el-button @click="handleToLinkEvent(`/blog?id=${item.id}&author=${author}`)">{{ item.introduction }}</el-button>
         </div>
       </template>
     </el-card>
@@ -24,12 +24,26 @@
 import { onMounted, ref } from "vue";
 import axios from "axios";
 import { useCookies } from "vue3-cookies";
+import { useRouter } from "vue-router";
 
 // cookies
 const { cookies } = useCookies();
 
+// router
+const router = useRouter();
+
+// author
+const author = cookies.get("username");
+
 const blogs = ref([]);
 const api_url = `${import.meta.env.VITE_API_HOST}/blogs/find_all`
+
+
+function handleToLinkEvent(link) {
+  if (router && link) {
+    router.push(link);
+  }
+}
 
 async function requestBlogs() {
   const data = {

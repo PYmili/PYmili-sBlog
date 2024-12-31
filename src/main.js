@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
 
 // public css
-import "./assets/style.css"
+import "@/assets/style.css"
+import "@/assets/theme.css"
 
 // element-plus
 import ElementPlus from "element-plus"
@@ -14,17 +15,22 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: () => import('./Home.vue')
+        component: () => import('@/Home.vue')
     },
     {
         path: '/login',
         name: 'login',
-        component: () => import('./Login.vue')
+        component: () => import('@/Login.vue')
     },
     {
         path: '/console',
         name: 'Console',
-        component: () => import('./Console.vue')
+        component: () => import('@/Console.vue')
+    },
+    {
+        path: '/blog',
+        name: 'Blog',
+        component: () => import('@/Blog.vue')
     }
 ];
 const router = createRouter({
@@ -32,7 +38,7 @@ const router = createRouter({
     routes,
 });
 
-import App from './App.vue'
+import App from '@/App.vue'
 import { compile } from 'vue'
 
 const app = createApp(App);

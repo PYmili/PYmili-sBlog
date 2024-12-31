@@ -56,10 +56,12 @@ import JwtInspectionVue from "@/components/public/util/JwtInspection.vue";
 
 import BlogsVue from "@/components/console/page/blogs/blogs.vue";
 import BlogCreateVue from "./page/blogs-create/BlogCreate.vue";
+import { useRouter } from "vue-router";
 
 const isCollapse = ref(true);
 const currentActive = ref("1-1");
 
+const router = useRouter();
 const jwtInspectionRef = ref(null);
 
 function handleMenuCollapse() {
@@ -74,7 +76,17 @@ const handleMenuSelect = (key, keyPath) => {
 
 onMounted(async () => {
   if (jwtInspectionRef.value) {
-    await jwtInspectionRef.value.inspection();
+    const result = await jwtInspectionRef.value.inspection();
+    if (result == false) {
+      jwtInspectionRef.value.showAlert({
+        title: "错误！",
+        type: "error",
+        description: "未登录！",
+      });
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
+    }
   }
 });
 </script>

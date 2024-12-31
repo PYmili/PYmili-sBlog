@@ -1,0 +1,11 @@
+/* 默认dark主题 */
+:root[theme='dark'] {
+    --bg-color: #0d1117;
+    --text-color: #f0f6fc;
+}
+
+/* light主题 */
+:root[theme='light'] {
+    --bg-color: #ecf0f3;
+    --text-color: #181818;
+}
