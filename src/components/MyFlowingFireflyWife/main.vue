@@ -128,7 +128,6 @@
 import { ref, shallowRef } from "vue";
 import {
   Monitor,
-  Cpu,
   Picture, Files
 } from "@element-plus/icons-vue";
 

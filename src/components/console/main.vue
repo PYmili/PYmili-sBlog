@@ -1,5 +1,6 @@
 <template>
   <JwtInspectionVue ref="jwtInspectionRef"></JwtInspectionVue>
+  <DialogVue ref="dialogVueRef"></DialogVue>
   <div class="consloe">
     <div class="menu">
       <el-button
@@ -34,6 +35,15 @@
           <el-icon><setting /></el-icon>
           <template #title>设置</template>
         </el-menu-item>
+        <el-menu-item 
+          class="quit-el-menu-item" 
+          @click="handleQuitEvent"
+        >
+          <el-icon>
+            <img src="/images/svg/quit.svg" style="width: 15px;">
+          </el-icon>
+          <template #title>退出</template>
+        </el-menu-item>
       </el-menu>
     </div>
     <div class="content">
@@ -48,24 +58,50 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { Menu as IconMenu, Postcard, Setting } from "@element-plus/icons-vue";
+import { onMounted, ref, nextTick } from "vue";
+import { 
+  Menu as IconMenu,
+  Postcard, 
+  Setting,
+} from "@element-plus/icons-vue";
+
+// router
+import { useRouter } from "vue-router";
+import { useCookies } from "vue3-cookies";
 
 // 检验jwt
 import JwtInspectionVue from "@/components/public/util/JwtInspection.vue";
-
 import BlogsVue from "@/components/console/page/blogs/blogs.vue";
 import BlogCreateVue from "./page/blogs-create/BlogCreate.vue";
-import { useRouter } from "vue-router";
+import DialogVue from "@/components/public/element-plus/Dialog.vue";
 
 const isCollapse = ref(true);
 const currentActive = ref("1-1");
 
 const router = useRouter();
+const { cookies } = useCookies();
 const jwtInspectionRef = ref(null);
+const dialogVueRef = ref(null);
+
+function handleQuitEvent() {
+  console.log("handle quit event.");
+  let handleConfirm = () => {
+    cookies.remove("jwt");
+    cookies.remove("username");
+    router.push("/");
+  }
+  nextTick(() => {
+    dialogVueRef.value.init({
+      title: "提示",
+      message: "您确定要退出吗？此操作将导致登录被清除。",
+      handleConfirm: handleConfirm
+    });
+    dialogVueRef.value.isShow(true);
+  });
+}
 
 function handleMenuCollapse() {
-  isCollapse.value = !isCollapse.value;
+  isCollapse.value = !isCollapse.valuecancel;
 }
 
 const handleMenuSelect = (key, keyPath) => {
@@ -121,5 +157,11 @@ onMounted(async () => {
   height: 95vh;
   background-color: #ffffffa5;
   padding: 20px;
+}
+.quit-el-menu-item {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 </style>
