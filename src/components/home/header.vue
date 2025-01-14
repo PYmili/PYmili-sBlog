@@ -28,15 +28,38 @@
     >
       <el-menu-item index="1">博客中心</el-menu-item>
     </el-tooltip>
-    <el-sub-menu index="2">
+    <el-tooltip 
+      effect="dark" 
+      content="前往开源社区" 
+      placement="top">
+      <el-menu-item index="2">开源</el-menu-item>
+    </el-tooltip>
+    <el-tooltip 
+      effect="dark" 
+      content="前往资源大厅" 
+      placement="top">
+      <el-menu-item index="3">资源</el-menu-item>
+    </el-tooltip>
+    <el-tooltip 
+      effect="dark" 
+      content="前往技术社区" 
+      placement="top">
+      <el-menu-item index="4">社区</el-menu-item>
+    </el-tooltip>
+    <el-sub-menu index="5">
       <template #title>其他</template>
-      <el-menu-item index="2-1">开源</el-menu-item>
-      <el-menu-item index="2-2">资源</el-menu-item>
-      <el-menu-item index="2-3">社区</el-menu-item>
-      <el-sub-menu index="2-4">
-        <template #title>其他</template>
-        <el-menu-item @click="toLink(`/login`)" index="2-4-1">登录后台</el-menu-item>
-        <el-menu-item @click="toLink(`/MyFlowingFireflyWife`)" index="2-4-2">MyFlowingFireflyWife</el-menu-item>
+      <el-menu-item 
+        @click="toLink(`/MyFlowingFireflyWife`)" 
+        index="5-1">
+        MyFlowingFireflyWife
+      </el-menu-item>
+      <el-sub-menu index="5-2">
+        <template #title>用户</template>
+        <el-menu-item 
+          @click="toLink(`/login`)" 
+          index="2-4-1">
+          登录后台
+        </el-menu-item>
         <!-- <el-menu-item index="2-4-2"></el-menu-item>
                 <el-menu-item index="2-4-3"></el-menu-item> -->
       </el-sub-menu>
@@ -70,14 +93,12 @@ const searchInputModel = ref(null);
 // use router
 const router = useRouter();
 
-
 // 通过router路由到指定地址
 function toLink(link: string) {
-    if (link && router) {
-        router.push(link);
-    }
+  if (link && router) {
+    router.push(link);
+  }
 }
-
 
 // 导航栏选中回调
 const handleSelect = (key: string, keyPath: string[]) => {
@@ -103,5 +124,29 @@ const handleSelect = (key: string, keyPath: string[]) => {
   right: 35px;
   width: 20%;
   /* align-content: center; */
+}
+
+@media (max-width: 468px) {
+  .search-input {
+    width: 120px;
+    right: 5px;
+    top: 5px;
+  }
+  :deep(.el-input) {
+    padding: 5px;
+    font-size: 10px;
+  }
+  :deep(.el-menu-item) {
+    font-size: 10px;
+    padding: 5px;
+  }
+  :deep(.el-sub-menu) {
+    width: 60px;
+    padding: 5px;
+  }
+  :deep(.el-sub-menu__title) {
+    font-size: 10px;
+    padding: 0;
+  }
 }
 </style>
