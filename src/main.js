@@ -31,10 +31,15 @@ const routes = [
         path: '/blog',
         name: 'Blog',
         component: () => import('@/Blog.vue')
+    },
+    {
+        path: '/MyFlowingFireflyWife',
+        name: 'MyFlowingFireflyWife',
+        component: () => import('@/MyFlowingFireflyWife.vue')
     }
 ];
 const router = createRouter({
-    history: createWebHashHistory(import.meta.env.BASE_URL),
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes,
 });
 

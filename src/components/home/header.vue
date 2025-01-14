@@ -36,6 +36,7 @@
       <el-sub-menu index="2-4">
         <template #title>其他</template>
         <el-menu-item @click="toLink(`/login`)" index="2-4-1">登录后台</el-menu-item>
+        <el-menu-item @click="toLink(`/MyFlowingFireflyWife`)" index="2-4-2">MyFlowingFireflyWife</el-menu-item>
         <!-- <el-menu-item index="2-4-2"></el-menu-item>
                 <el-menu-item index="2-4-3"></el-menu-item> -->
       </el-sub-menu>
