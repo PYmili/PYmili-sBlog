@@ -13,7 +13,7 @@
       </div>
       <template #footer>
         <div class="link">
-          <el-button @click="handleToLinkEvent(`/blog?id=${item.id}&author=${author}`)">{{ item.introduction }}</el-button>
+          <el-button @click="handleToLinkEvent(`/blog?id=${item.id}`)">{{ item.introduction }}</el-button>
         </div>
       </template>
     </el-card>
@@ -32,11 +32,8 @@ const { cookies } = useCookies();
 // router
 const router = useRouter();
 
-// author
-const author = cookies.get("username");
-
 const blogs = ref([]);
-const api_url = `${import.meta.env.VITE_API_HOST}/blogs/find_all`
+const api_url = `${import.meta.env.VITE_API_HOST}/blog/find-range`
 
 
 function handleToLinkEvent(link) {
@@ -46,22 +43,22 @@ function handleToLinkEvent(link) {
 }
 
 async function requestBlogs() {
-  const data = {
-    author: cookies.get("username"),
-    jwt: cookies.get("jwt"),
-  };
-  await axios
-    .post(api_url, data, {
+  const jwt = cookies.get("jwt");
+  const start = 0;
+  const number = 10;
+
+  await axios.post(api_url + `?start=${start}&number=${number}`, {}, {
       headers: {
         "Content-Type": "application/json",
+        "Authentication": `Bearer ${jwt}`
       },
     })
     .then((response) => {
-      if (response.data.code == 200) {
-        blogs.value = response.data.data;
-      }
+      blogs.value = response.data.data;
     })
-    .catch((error) => {});
+    .catch((error) => {
+      console.log(error.request.response);
+    });
 }
 
 onMounted(async () => {

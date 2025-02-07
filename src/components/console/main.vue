@@ -1,5 +1,4 @@
 <template>
-  <JwtInspectionVue ref="jwtInspectionRef"></JwtInspectionVue>
   <DialogVue ref="dialogVueRef"></DialogVue>
   <div class="consloe">
     <div class="menu">
@@ -35,12 +34,9 @@
           <el-icon><setting /></el-icon>
           <template #title>设置</template>
         </el-menu-item>
-        <el-menu-item 
-          class="quit-el-menu-item" 
-          @click="handleQuitEvent"
-        >
+        <el-menu-item class="quit-el-menu-item" @click="handleQuitEvent">
           <el-icon>
-            <img src="/images/svg/quit.svg" style="width: 15px;">
+            <img src="/images/svg/quit.svg" style="width: 15px" />
           </el-icon>
           <template #title>退出</template>
         </el-menu-item>
@@ -59,18 +55,13 @@
 
 <script setup>
 import { onMounted, ref, nextTick } from "vue";
-import { 
-  Menu as IconMenu,
-  Postcard, 
-  Setting,
-} from "@element-plus/icons-vue";
+import { Menu as IconMenu, Postcard, Setting } from "@element-plus/icons-vue";
 
 // router
 import { useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 
-// 检验jwt
-import JwtInspectionVue from "@/components/public/util/JwtInspection.vue";
+// components
 import BlogsVue from "@/components/console/page/blogs/blogs.vue";
 import BlogCreateVue from "./page/blogs-create/BlogCreate.vue";
 import DialogVue from "@/components/public/element-plus/Dialog.vue";
@@ -80,7 +71,6 @@ const currentActive = ref("1-1");
 
 const router = useRouter();
 const { cookies } = useCookies();
-const jwtInspectionRef = ref(null);
 const dialogVueRef = ref(null);
 
 function handleQuitEvent() {
@@ -89,12 +79,12 @@ function handleQuitEvent() {
     cookies.remove("jwt");
     cookies.remove("username");
     router.push("/");
-  }
+  };
   nextTick(() => {
     dialogVueRef.value.init({
       title: "提示",
       message: "您确定要退出吗？此操作将导致登录被清除。",
-      handleConfirm: handleConfirm
+      handleConfirm: handleConfirm,
     });
     dialogVueRef.value.isShow(true);
   });
@@ -109,22 +99,6 @@ const handleMenuSelect = (key, keyPath) => {
     currentActive.value = key;
   }
 };
-
-onMounted(async () => {
-  if (jwtInspectionRef.value) {
-    const result = await jwtInspectionRef.value.inspection();
-    if (result == false) {
-      jwtInspectionRef.value.showAlert({
-        title: "错误！",
-        type: "error",
-        description: "未登录！",
-      });
-      setTimeout(() => {
-        router.push("/");
-      }, 1000);
-    }
-  }
-});
 </script>
 
 <style scoped>

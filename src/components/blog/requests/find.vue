@@ -1,23 +1,17 @@
-<template>
-  
-</template>
-
 <script setup>
 import axios from 'axios';
 import { useCookies } from 'vue3-cookies';
 
-const URL = `${import.meta.env.VITE_API_HOST}/blogs/find`;
+const URL = `${import.meta.env.VITE_API_HOST}/blog/find`;
 const { cookies } = useCookies();
 
-async function findRequest(data) {
+async function findRequest(params) {
+    // console.log(params);
     const jwt = cookies.get('jwt');    
-    if (!jwt) {
-        return undefined;
-    }
-    data['jwt'] = jwt;
-    return await axios.post(URL, data, {
+    return await axios.get(URL + `?id=${params.id}`, {
         headers: {
             "Content-Type": "application/json",
+            "Authentication": `Bearer ${jwt}`
         }
     }).then((response) => {
         if (response.status == 200 && response.data.code == 200) {
@@ -34,7 +28,3 @@ defineExpose({
     findRequest
 });
 </script>
-
-<style>
-
-</style>

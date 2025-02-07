@@ -1,65 +1,41 @@
-<template>
-  <AlertVue ref="alertRef"></AlertVue>
-</template>
-
 <script setup>
-import { ref } from "vue";
 // cookies
 import { useCookies } from "vue3-cookies";
 // axios
 import axios from "axios";
 
-// alert
-import AlertVue from "@/components/public/alert.vue";
-
-const alertRef = ref(null);
+// use cookies
 const { cookies } = useCookies();
-const api_url = `${import.meta.env.VITE_API_HOST}/user/user_info`;
+// axios create
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_API_HOST,
+  // withCredentials: true,
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
+});
 
-
-function showAlert(params) {
-  if (alertRef.value) {
-    alertRef.value.showAlert(params);
+async function verifyJwt() {
+  const jwt = cookies.get("jwt");
+  if (jwt == null || jwt == undefined) {
+    return false;
   }
-}
-
-async function requestJWT(data) {
-  return await axios
-    .post(api_url, data, {
+  // console.log(jwt);
+  return await apiClient
+    .get("/user/verify", {
       headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then((response) => {
-      if (response.status == 200 && response.data.code == 200) {
-        return true;
-      } else {
-        return false;
+        "Authentication": `Bearer ${jwt}`
       }
     })
-    .catch((error) => {
+    .then(response => {
+      return true;
+    }).catch(error => {
       return false;
     });
 }
 
-async function inspection() {
-  const jwt = cookies.get("jwt");
-  const name = cookies.get("username");
-  if (jwt && name) {
-    const result = await requestJWT({
-      name: name,
-      token: jwt,
-    });
-
-    if (result) return true;
-  }
-  return false;
-}
 defineExpose({
-  inspection,
-  showAlert
+  verifyJwt
 });
 </script>
-
-<style>
-</style>

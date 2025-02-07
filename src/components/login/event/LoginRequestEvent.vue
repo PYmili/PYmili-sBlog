@@ -1,103 +1,92 @@
 <template>
-  <AlertVue ref="AlertVueRef"></AlertVue>
+  <AlertVue ref="AlertChild" />
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
+import { nextTick, ref } from "vue";
+import axios from "axios";
 // vue3 cookies
-import { useCookies } from "vue3-cookies"
+import { useCookies } from "vue3-cookies";
 // 路由
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
+// hash
+import CryptoJS from "crypto-js";
 
-import AlertVue from '@/components/public/alert.vue'
+import AlertVue from "@/components/public/alert.vue";
 
-// alert vue ref
-const AlertVueRef = ref(null)
-
-function showAlert(params) {
-  if (AlertVueRef.value) {
-    AlertVueRef.value.showAlert(params)
-  }
-}
+// all child
+const AlertChild = ref(null);
 
 // cookies
-const { cookies } = useCookies()
+const { cookies } = useCookies();
 // router
-const router = useRouter()
+const router = useRouter();
 // axios create
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_HOST,
   // withCredentials: true,
   headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  }
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
 });
 
-// 判断是否已登录
-function isLogin() {
-  if (cookies.get('jwt')) {
-    router.push('/console')
-  }
+function hashPassword(pwd) {
+  return CryptoJS.SHA256(pwd).toString();
 }
-isLogin()
+
+async function showAlert(params) {
+  return await nextTick(async () => {
+    AlertChild.value.showAlert(params);
+  });
+}
 
 // 用户登录事件
 async function handleUserLogin(params) {
-  // console.log(params.value);
   const data = JSON.stringify({
-    name: btoa(params.value.username),
-    password: btoa(params.value.password),
+    name: params.value.username,
+    passwordHash: hashPassword(params.value.password),
   });
-  // console.log(data)
-  
-  await apiClient.post('/user/login', data)
-    .then(response => {
-      // console.log(response.data);
-      if (response.data.code !== 200) {
-        return
-      }
+
+  await apiClient
+    .post("/user/login", data)
+    .then((response) => {
       showAlert({
-        title: '成功！',
-        type: 'success',
-        description: '登录成功！'
-      })
-      // 写入cookies和username
-      cookies.set('jwt', response.data.data, '1d')
-      cookies.set('username', params.value.username, '1d')
+        title: "成功！",
+        type: "success",
+        description: "登录成功！",
+      });
+      // 保存jwt
+      cookies.set("jwt", response.data.data, "1d");
       // 登录成功跳转
       setTimeout(() => {
-        router.push('/console')
-      }, 3000)
+        router.push("/console");
+      }, 1000);
     })
-    .catch(error => {
+    .catch((error) => {
       if (error.response) {
         showAlert({
-          title: '失败！',
-          type: 'warning',
-          description: JSON.parse(error.request.response).data
-        })
+          title: "失败！",
+          type: "warning",
+          description: JSON.parse(error.request.response).data,
+        });
       } else if (error.request) {
         showAlert({
-          title: '错误！',
-          type: 'error',
-          description: '服务器未响应！'
-        })
+          title: "错误！",
+          type: "error",
+          description: "服务器未响应！",
+        });
       } else {
         showAlert({
-          title: '错误！',
-          type: 'error',
-          description: '发送请求失败！'
-        })
+          title: "错误！",
+          type: "error",
+          description: "发送请求失败！",
+        });
       }
-    })
+    });
 }
 
 defineExpose({
-    handleUserLogin
-})
+  handleUserLogin
+});
 </script>
-
-<style>
-</style>

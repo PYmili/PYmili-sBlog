@@ -18,10 +18,10 @@
 </template>
 
 <script setup>
-import footerVue from "./components/home/footer.vue";
-import headerVue from "./components/home/header.vue";
-import mainVue from "./components/home/main.vue";
-import Carousel from "./components/home/carousel.vue";
+import footerVue from "../components/home/footer.vue";
+import headerVue from "../components/home/header.vue";
+import mainVue from "../components/home/main.vue";
+import Carousel from "../components/home/carousel.vue";
 </script>
 
 <style scoped>
