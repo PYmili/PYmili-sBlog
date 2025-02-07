@@ -1,34 +1,33 @@
 package icu.pymiliblog.pymillsblog.controller.user;
 
 import icu.pymiliblog.pymillsblog.pojo.ResultPojo;
-import icu.pymiliblog.pymillsblog.pojo.UserPojo;
-import icu.pymiliblog.pymillsblog.service.user.UserInfoService;
-import lombok.extern.flogger.Flogger;
-import org.apache.ibatis.annotations.Param;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import icu.pymiliblog.pymillsblog.service.user.UserService;
+import icu.pymiliblog.pymillsblog.utils.JwtUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "*", allowedHeaders = "*") // 允许所有域跨域访问
 public class UserController {
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
-    private UserInfoService userInfoService;
+    private UserService userService;
 
-    @PostMapping("/user_info")
-    public ResponseEntity<ResultPojo> userInfo(@RequestBody UserPojo userPojo) {
-        if (userPojo == null) {
-            logger.warn("request body is null!");
-            return ResultPojo.not_found("request body is null!");
-        } else if (userPojo.getName() == null || userPojo.getToken() == null) {
-            logger.warn("name or token is null!");
-            return ResultPojo.not_found("name or token is null!");
+    UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping("/verify")
+    public ResponseEntity<ResultPojo> verify(@RequestHeader(value = "Authentication") String authHeader) {
+        log.info("/login: request values: " +
+                "Authentication Header: {}", authHeader);
+        // 验证jwt
+        if (!JwtUtils.verify(authHeader)) {
+            log.warn("/login: Illegal request.");
+            return ResultPojo.IllegalRequest();
         }
-        return userInfoService.userInfo(userPojo);
+        return ResultPojo.ok("success");
     }
 }

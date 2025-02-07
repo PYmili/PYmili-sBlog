@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="icu.pymiliblog.pymillsblog.mapper.BlogMapper">
+    <select id="findBlog" resultType="icu.pymiliblog.pymillsblog.pojo.blog.BlogPojo">
+        select * from blogs where id = #{id};
+    </select>
+    <select id="findRange" resultType="icu.pymiliblog.pymillsblog.pojo.blog.BlogPojo">
+        SELECT
+            id, title, topImg, introduction, content, author, createDate, published
+        FROM blogs LIMIT #{start}, #{number};
+    </select>
+</mapper>

@@ -1,4 +1,4 @@
-package icu.pymiliblog.pymillsblog.pojo;
+package icu.pymiliblog.pymillsblog.pojo.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BlogsPojo {
+public class BlogPojo {
     private Integer id;
     private String title;
     private byte[] topImg;
