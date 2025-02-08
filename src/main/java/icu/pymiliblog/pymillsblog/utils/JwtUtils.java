@@ -1,10 +1,6 @@
 package icu.pymiliblog.pymillsblog.utils;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 
@@ -105,13 +101,24 @@ public class JwtUtils {
         return jws.getPayload();
     }
 
-    public static boolean verify(String jwt) {
+    /**
+     * 验证jwt是否合法，不合法将返回true
+     * @param jwt {@link String}
+     * @return boolean
+     */
+    public static boolean VerifyJwtIsValid(String jwt) {
         if (jwt == null || jwt.isEmpty()) {
-            return false;
+            return true;
         }
-        if (!jwt.startsWith("Bearer ")) return false;
+        if (!jwt.startsWith("Bearer ")) return true;
         log.info("verify jwt: {}", jwt);
-        Claims claims = parseJWT(jwt.split(" ")[1]);
-        return !claims.isEmpty();
+        try {
+            return parseJWT(jwt.split(" ")[1]).isEmpty();
+        } catch (ExpiredJwtException expiredJwtException) {
+            log.warn("Verify JWT ExpiredJwtException: {}", expiredJwtException.toString());
+        }  catch (Exception e) {
+            log.warn("Verify JWT Exception: {}", e.toString());
+        }
+        return true;
     }
 }

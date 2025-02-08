@@ -24,7 +24,7 @@ public class UserController {
         log.info("/login: request values: " +
                 "Authentication Header: {}", authHeader);
         // 验证jwt
-        if (!JwtUtils.verify(authHeader)) {
+        if (JwtUtils.VerifyJwtIsValid(authHeader)) {
             log.warn("/login: Illegal request.");
             return ResultPojo.IllegalRequest();
         }

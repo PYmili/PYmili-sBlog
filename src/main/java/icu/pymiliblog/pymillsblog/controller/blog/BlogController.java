@@ -1,9 +1,7 @@
 package icu.pymiliblog.pymillsblog.controller.blog;
 
 import icu.pymiliblog.pymillsblog.pojo.ResultPojo;
-import icu.pymiliblog.pymillsblog.pojo.blog.BlogPojo;
 import icu.pymiliblog.pymillsblog.service.blog.BlogService;
-import icu.pymiliblog.pymillsblog.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +19,7 @@ public class BlogController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<ResultPojo> findBlog(
-            @RequestHeader(value = "Authentication") String authHeader,
-            @RequestParam(value = "id") Integer id) {
-        if (!JwtUtils.verify(authHeader)) return ResultPojo.IllegalRequest();
+    public ResponseEntity<ResultPojo> findBlog(@RequestParam(value = "id") Integer id) {
         if (id == null || id <= 0) {
             log.warn("/blog/find: request params error.");
             return ResultPojo.not_found("参数错误！");
@@ -35,10 +30,8 @@ public class BlogController {
 
     @RequestMapping(value = "/find-range", method = RequestMethod.POST)
     public ResponseEntity<ResultPojo> findBlogAll(
-            @RequestHeader(value = "Authentication") String authHeader,
             @RequestParam(value = "start", required = false) Integer start,
             @RequestParam(value = "number", required = false) Integer number) {
-        if (!JwtUtils.verify(authHeader)) return ResultPojo.IllegalRequest();
         if (start == null || start < 0 || number == null || number <= 0) {
             return ResultPojo.not_found("参数错误！");
         }
