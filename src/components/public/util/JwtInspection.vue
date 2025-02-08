@@ -1,3 +1,5 @@
+<template></template>
+
 <script setup>
 // cookies
 import { useCookies } from "vue3-cookies";

@@ -1,3 +1,5 @@
+<template></template>
+
 <script setup>
 import axios from 'axios';
 import { useCookies } from 'vue3-cookies';
