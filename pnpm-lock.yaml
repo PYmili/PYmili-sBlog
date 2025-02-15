@@ -11,6 +11,9 @@ importers:
       '@element-plus/icons-vue':
         specifier: ^2.3.1
         version: 2.3.1(vue@3.5.13)
+      '@esotericsoftware/spine-player':
+        specifier: ^4.2.73
+        version: 4.2.73
       axios:
         specifier: ^1.7.9
         version: 1.7.9
@@ -340,6 +343,15 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@esotericsoftware/spine-core@4.2.73':
+    resolution: {integrity: sha512-BLKqJRaUtqG8O4stkrthgjI4QFHKPEK8SuNPjUBOIw1OrQHXVEmS7tbsinynTtauS2Ow0IpHwTU/E/+fKdj61A==}
+
+  '@esotericsoftware/spine-player@4.2.73':
+    resolution: {integrity: sha512-5BXTaLni3Qx79a2v4R7BJPXWiu9X6LG6m+xRpKpysnL/h8MrGn5d3H4OmUoiH+I9DuUApZZtyJRtn/mgZ4+gzg==}
+
+  '@esotericsoftware/spine-webgl@4.2.73':
+    resolution: {integrity: sha512-/B6i/JKZwUOotx/ERKaj/aozyyaq427IG/FP1MA1VfVsYIfhTB6OHNKftLkCV1ONq4+iTLYJpYcSMP7pE/3NHA==}
 
   '@floating-ui/core@1.6.8':
     resolution: {integrity: sha512-7XJ9cPU+yI2QeLS+FCSlqNFZJq8arvswefkZrYI1yQBbftw6FyrZOxYSh+9S7z7TpeWlRt9zJ5IhM1WIL334jA==}
@@ -1362,6 +1374,16 @@ snapshots:
 
   '@esbuild/win32-x64@0.24.0':
     optional: true
+
+  '@esotericsoftware/spine-core@4.2.73': {}
+
+  '@esotericsoftware/spine-player@4.2.73':
+    dependencies:
+      '@esotericsoftware/spine-webgl': 4.2.73
+
+  '@esotericsoftware/spine-webgl@4.2.73':
+    dependencies:
+      '@esotericsoftware/spine-core': 4.2.73
 
   '@floating-ui/core@1.6.8':
     dependencies:

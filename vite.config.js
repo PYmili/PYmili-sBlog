@@ -20,5 +20,8 @@ export default defineConfig({
     preprocessorOptions: {
       scss: { api: 'modern-compiler' },
     }
+  },
+  server: {
+    cors: true // 启用 CORS
   }
 })
