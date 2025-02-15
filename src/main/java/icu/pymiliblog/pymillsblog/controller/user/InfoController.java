@@ -1,7 +1,8 @@
 package icu.pymiliblog.pymillsblog.controller.user;
 
-import icu.pymiliblog.pymillsblog.pojo.ResultPojo;
-import icu.pymiliblog.pymillsblog.service.user.UserService;
+import icu.pymiliblog.pymillsblog.common.ResultPojo;
+import icu.pymiliblog.pymillsblog.service.user.InfoService;
+import icu.pymiliblog.pymillsblog.service.user.impl.InfoServiceImpl;
 import icu.pymiliblog.pymillsblog.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "*", allowedHeaders = "*") // 允许所有域跨域访问
-public class UserController {
+public class InfoController {
 
-    private UserService userService;
+    private InfoService infoService;
 
-    UserController(UserService userService) {
-        this.userService = userService;
+    InfoController(InfoServiceImpl infoService) {
+        this.infoService = infoService;
     }
 
     @GetMapping("/verify")

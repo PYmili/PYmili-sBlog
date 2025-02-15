@@ -1,6 +1,6 @@
 package icu.pymiliblog.pymillsblog.exception;
 
-import icu.pymiliblog.pymillsblog.pojo.ResultPojo;
+import icu.pymiliblog.pymillsblog.common.ResultPojo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

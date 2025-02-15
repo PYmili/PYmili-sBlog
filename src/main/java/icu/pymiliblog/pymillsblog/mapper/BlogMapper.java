@@ -7,6 +7,6 @@ import java.util.List;
 
 @Mapper
 public interface BlogMapper {
-    public BlogPojo findBlog(Integer id);
-    public List<BlogPojo> findRange(Integer start, Integer number);
+    BlogPojo findBlog(Integer id);
+    List<BlogPojo> findRange(Integer start, Integer number);
 }

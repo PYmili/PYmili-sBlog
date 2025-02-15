@@ -1,6 +1,6 @@
 package icu.pymiliblog.pymillsblog.controller.blog;
 
-import icu.pymiliblog.pymillsblog.pojo.ResultPojo;
+import icu.pymiliblog.pymillsblog.common.ResultPojo;
 import icu.pymiliblog.pymillsblog.service.blog.BlogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

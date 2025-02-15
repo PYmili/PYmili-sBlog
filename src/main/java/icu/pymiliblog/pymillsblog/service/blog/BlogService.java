@@ -1,7 +1,7 @@
 package icu.pymiliblog.pymillsblog.service.blog;
 
 import icu.pymiliblog.pymillsblog.mapper.BlogMapper;
-import icu.pymiliblog.pymillsblog.pojo.ResultPojo;
+import icu.pymiliblog.pymillsblog.common.ResultPojo;
 import icu.pymiliblog.pymillsblog.pojo.blog.BlogPojo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

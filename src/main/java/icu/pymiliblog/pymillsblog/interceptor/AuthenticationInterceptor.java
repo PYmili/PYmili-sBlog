@@ -1,7 +1,7 @@
 package icu.pymiliblog.pymillsblog.interceptor;
 
 import com.alibaba.fastjson2.JSONObject;
-import icu.pymiliblog.pymillsblog.pojo.ResultPojo;
+import icu.pymiliblog.pymillsblog.common.ResultPojo;
 import icu.pymiliblog.pymillsblog.utils.JwtUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,7 +42,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             log.warn("Authentication failed!");
             // 构造错误返回json
             ResultPojo notLogin = new ResultPojo(
-                    HttpStatus.NOT_FOUND.value(), "NOT_LOGIN");
+                    HttpStatus.NOT_FOUND.value(), "NOT_LOGIN", "未登录");
             response.getWriter().write(JSONObject.toJSONString(notLogin));
             return false;
         }

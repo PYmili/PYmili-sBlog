@@ -1,9 +1,9 @@
 package icu.pymiliblog.pymillsblog.controller.user;
 
-import icu.pymiliblog.pymillsblog.pojo.ResultPojo;
+import icu.pymiliblog.pymillsblog.common.ResultPojo;
 import icu.pymiliblog.pymillsblog.pojo.user.UserPojo;
 import icu.pymiliblog.pymillsblog.service.user.LoginService;
-import icu.pymiliblog.pymillsblog.utils.JwtUtils;
+import icu.pymiliblog.pymillsblog.service.user.impl.LoginServiceImpl;
 import icu.pymiliblog.pymillsblog.utils.RequestUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    public LoginController(LoginService loginService) {
+    public LoginController(LoginServiceImpl loginService) {
         this.loginService = loginService;
     }
 

@@ -6,6 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface RegisterService {
-    ResponseEntity<ResultPojo> register(UserPojo body);
+public interface InfoService {
+    ResponseEntity<ResultPojo> userInfo(UserPojo pojo);
 }

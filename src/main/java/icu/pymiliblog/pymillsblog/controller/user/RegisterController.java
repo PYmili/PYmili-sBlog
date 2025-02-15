@@ -1,11 +1,9 @@
 package icu.pymiliblog.pymillsblog.controller.user;
 
-import icu.pymiliblog.pymillsblog.pojo.ResultPojo;
+import icu.pymiliblog.pymillsblog.common.ResultPojo;
 import icu.pymiliblog.pymillsblog.pojo.user.UserPojo;
 import icu.pymiliblog.pymillsblog.service.user.RegisterService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 @CrossOrigin(origins = "*", allowedHeaders = "*") // 允许所有域跨域访问
 public class RegisterController {
-    private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
 
     private final RegisterService registerService;
 
