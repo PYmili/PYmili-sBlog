@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * 博客的POJO
+ * @author PYmili
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

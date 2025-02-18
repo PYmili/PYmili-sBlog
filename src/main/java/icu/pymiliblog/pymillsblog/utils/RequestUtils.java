@@ -2,7 +2,17 @@ package icu.pymiliblog.pymillsblog.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+/**
+ * 网络请求工具类
+ * @author PYmili
+ */
 public class RequestUtils {
+
+    /**
+     * 获取发送请求的人的地址
+     * @param request {@link HttpServletRequest}
+     * @return {@link String}
+     */
     public static String getRemoteAddress(HttpServletRequest request) {
         String address = request.getHeader("X-Forwarded-For");
         if (address != null && !address.isEmpty() && !"unknown".equalsIgnoreCase(address)) {

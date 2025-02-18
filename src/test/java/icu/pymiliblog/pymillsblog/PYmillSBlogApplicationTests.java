@@ -25,7 +25,7 @@ class PYmillSBlogApplicationTests {
         user.setName("PYmili");
         // user.setPassword("1234");
         // user.setEmail("mc2005wj@163.com");
-        UserPojo result = mapper.findUser(user);
+        UserPojo result = mapper.findByPojo(user);
         System.out.println("test select user result: " + result);
     }
 

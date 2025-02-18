@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="icu.pymiliblog.pymillsblog.mapper.UserMapper">
-    <select id="findUser" resultType="icu.pymiliblog.pymillsblog.pojo.user.UserPojo">
+    <select id="findByPojo" resultType="icu.pymiliblog.pymillsblog.pojo.user.UserPojo">
         select
             id, name, password_hash AS passwordHash, registration, email, salt
          from users

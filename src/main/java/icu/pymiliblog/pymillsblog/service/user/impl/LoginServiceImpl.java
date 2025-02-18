@@ -1,7 +1,7 @@
 package icu.pymiliblog.pymillsblog.service.user.impl;
 
 import icu.pymiliblog.pymillsblog.mapper.UserMapper;
-import icu.pymiliblog.pymillsblog.common.ResultPojo;
+import icu.pymiliblog.pymillsblog.common.ApiResponseCommon;
 import icu.pymiliblog.pymillsblog.pojo.user.UserPojo;
 import icu.pymiliblog.pymillsblog.service.user.LoginService;
 import icu.pymiliblog.pymillsblog.utils.JwtUtils;
@@ -14,26 +14,37 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * LoginService的实现
+ * @author PYmili
+ */
 @Slf4j
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    private final UserMapper mapper;
+    // 用户操作的Mapper
+    private final UserMapper userMapper;
 
     public LoginServiceImpl(UserMapper mapper) {
-        this.mapper = mapper;
+        this.userMapper = mapper;
     }
 
+    /**
+     * 登录接口实现
+     * @param requestBody {@link UserPojo}
+     * @return {@link ResponseEntity}
+     * @throws NoSuchAlgorithmException
+     */
     @Override
-    public ResponseEntity<ResultPojo> login(UserPojo requestBody) throws NoSuchAlgorithmException {
+    public ResponseEntity<ApiResponseCommon> login(UserPojo requestBody) throws NoSuchAlgorithmException {
         // 查询用户
         UserPojo findUserPojo = new UserPojo();
         findUserPojo.setName(requestBody.getName());
-        UserPojo findResult = mapper.findUser(findUserPojo);
+        UserPojo findResult = userMapper.findByPojo(findUserPojo);
         if (findResult == null) {
             // 未查询到则返回错误
             log.warn("Login service: not user \"{}\"", requestBody.getName());
-            return ResultPojo.not_found("用户或密码错误！");
+            return ApiResponseCommon.not_found("用户或密码错误！");
         }
         log.info("Login service: find result: {}", findResult);
 
@@ -43,7 +54,7 @@ public class LoginServiceImpl implements LoginService {
         String passwordHeaded = PasswordUtils.hashPassword(requestPwdHash, salt);
         if (!findResult.getPasswordHash().equals(passwordHeaded)) {
             log.warn("Login service: Password error.");
-            return ResultPojo.not_found("用户或密码错误！");
+            return ApiResponseCommon.not_found("用户或密码错误！");
         }
 
         // 生成 jwt token
@@ -52,7 +63,7 @@ public class LoginServiceImpl implements LoginService {
         map.put("name", requestBody.getName());
         String jwt = JwtUtils.createJwt(1, map, "login");
 
-        return ResponseEntity.ok().body(new ResultPojo(200,  jwt));
+        return ResponseEntity.ok().body(new ApiResponseCommon(200,  jwt));
     }
 
 }

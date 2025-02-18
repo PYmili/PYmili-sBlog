@@ -11,6 +11,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.*;
 
+/**
+ * JWT的工具类
+ * @author PYmili
+ */
 @Slf4j
 public class JwtUtils {
 
@@ -36,6 +40,11 @@ public class JwtUtils {
         return Base64.getEncoder().encodeToString(secretKey.getEncoded());
     }
 
+    /**
+     * byte数组转16进制字符串
+     * @param bytes
+     * @return {@link String}
+     */
     public static String bytesToHex(byte[] bytes) {
         StringBuilder hexString = new StringBuilder();
         for (byte b : bytes) {
@@ -48,6 +57,11 @@ public class JwtUtils {
         return hexString.toString();
     }
 
+    /**
+     * 16进制字符串转byte数组
+     * @param hexString {@link String}
+     * @return byte[]
+     */
     public static byte[] hexToBytes(String hexString) {
         byte[] bytes = new byte[hexString.length() / 2];
         for (int i = 0; i < bytes.length; i++) {
@@ -58,6 +72,10 @@ public class JwtUtils {
         return bytes;
     }
 
+    /**
+     * 生成一个指定长度的 hash 盐
+     * @return {@link String}
+     */
     public static String generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[SALT_LENGTH];
@@ -65,6 +83,13 @@ public class JwtUtils {
         return bytesToHex(salt);
     }
 
+    /**
+     * 创建JWT
+     * @param days 有效期-天数
+     * @param claims {@link Map} 添加的信息
+     * @param subject {@link String} 主题
+     * @return {@link String}
+     */
     public static String createJwt(long days, Map<String, Object> claims, String subject) {
         // 生成JWT的时间
         long expMillis = System.currentTimeMillis() + days * (1000 * 60 * 60 * 24);
@@ -88,6 +113,11 @@ public class JwtUtils {
         return builder.compact();
     }
 
+    /**
+     * 解析JWT
+     * @param token {@link String}
+     * @return {@link Claims}
+     */
     public static Claims parseJWT(String token) {
         //生成 HMAC 密钥，根据提供的字节数组长度选择适当的 HMAC 算法，并返回相应的 SecretKey 对象。
         SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));

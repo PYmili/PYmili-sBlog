@@ -3,12 +3,16 @@ package icu.pymiliblog.pymillsblog.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * 用户密码的工具类
+ * @author PYmili
+ */
 public class PasswordUtils {
 
     /**
      * 将密码hash处理
-     * @param password {@link String} 密码
-     * @param salt 盐
+     * @param password {@link String} 需要处理的密码
+     * @param salt {@link String} hash 盐
      * @return {@link String}
      * @throws NoSuchAlgorithmException
      */

@@ -1,7 +1,7 @@
 package icu.pymiliblog.pymillsblog.interceptor;
 
 import com.alibaba.fastjson2.JSONObject;
-import icu.pymiliblog.pymillsblog.common.ResultPojo;
+import icu.pymiliblog.pymillsblog.common.ApiResponseCommon;
 import icu.pymiliblog.pymillsblog.utils.JwtUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,6 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 
+/**
+ * 身份验证拦截器
+ * @author PYmili
+ */
 @Slf4j
 @Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
@@ -41,7 +45,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if (JwtUtils.VerifyJwtIsValid(authentication)) {
             log.warn("Authentication failed!");
             // 构造错误返回json
-            ResultPojo notLogin = new ResultPojo(
+            ApiResponseCommon notLogin = new ApiResponseCommon(
                     HttpStatus.NOT_FOUND.value(), "NOT_LOGIN", "未登录");
             response.getWriter().write(JSONObject.toJSONString(notLogin));
             return false;
